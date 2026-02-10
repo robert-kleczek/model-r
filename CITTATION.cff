@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it."
+title: "Discrete Relational Network Dynamics (DRND): A Fully Emergent Framework for Spacetime, Matter, and the Evolution of Fundamental Constants"
+authors:
+  - family-names: "Kłeczek"
+    given-names: "Robert"
+    orcid: "https://orcid.org/0009-0009-9774-0446"
+type: report
+version: "1.0"
+date-released: 2026-02-10
