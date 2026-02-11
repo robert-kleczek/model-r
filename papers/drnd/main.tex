@@ -8,6 +8,7 @@
 \usepackage{cite}
 % Optional: ORCID. If it causes issues on your system, remove the next line and \orcidlink in \author.
 \usepackage{orcidlink}
+\usepackage{placeins}
 
 % Optional (robustness with older LaTeX setups):
 % \usepackage[T1]{fontenc}
@@ -24,7 +25,7 @@
 
 \vspace{10pt}
 \begin{indented}
-\item[]\textbf{Version 1.0} -- February 2026
+\item[]\textbf{Version 1.0.1} -- February 2026
 \end{indented}
 
 \begin{abstract}
@@ -176,8 +177,8 @@ The parameterization $c_{\mathrm{eff}}(z)\approx c_0(1+z)^\epsilon$ can be inter
 \end{itemize}
 
 \begin{table}[htbp]
-\caption{...}
-\label{...}
+\caption{Qualitative constraint channels for phenomenological propagation parameter $\epsilon$ and the screening picture.}
+\label{tab:constraints_screening}
 \begin{center}
 \small
 \raggedright
@@ -196,7 +197,7 @@ Lensing delays & LoS environment dependence & Unscreened signature \\
 \end{center}
 \end{table}
 
-
+\FloatBarrier
 \section{Resolving the Dark Sector (Toy Phenomenology)}
 
 \subsection{Dark Energy as Dimensional Reduction}
@@ -212,9 +213,9 @@ The transverse comoving distance $D_M(z)$ is
 \begin{equation}
 D_M(z)=
 \cases{
-\frac{1}{\sqrt{\Omega_k}}\sinh\!\left(\sqrt{\Omega_k}\,\chi(z)\right), & $\Omega_k>0$,\\
-\chi(z), & $\Omega_k=0$,\\
-\frac{1}{\sqrt{|\Omega_k|}}\sin\!\left(\sqrt{|\Omega_k|}\,\chi(z)\right), & $\Omega_k<0$.
+\frac{1}{\sqrt{\Omega_k}}\sinh\!\left(\sqrt{\Omega_k}\,\chi(z)\right) & for $\quad \Omega_k>0$\\
+\chi(z) & for $\quad \Omega_k=0$\\
+\frac{1}{\sqrt{|\Omega_k|}}\sin\!\left(\sqrt{|\Omega_k|}\,\chi(z)\right) & for $\quad \Omega_k<0$\\
 }
 \end{equation}
 and the luminosity distance is

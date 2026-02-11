@@ -1,10 +1,26 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it."
 title: "Discrete Relational Network Dynamics (DRND): A Fully Emergent Framework for Spacetime, Matter, and the Evolution of Fundamental Constants"
+type: report
+version: "1.0"
+date-released: 2026-02-11
 authors:
   - family-names: "Kłeczek"
     given-names: "Robert"
+    email: "r.kleczek@advocem.com"
     orcid: "https://orcid.org/0009-0009-9774-0446"
-type: report
-version: "1.0"
-date-released: 2026-02-10
+repository-code: "https://github.com/robert-kleczek/model-r"
+license: "CC-BY-4.0"
+keywords:
+  - emergent spacetime
+  - spectral dimension
+  - network theory
+  - varying speed of light
+  - quantum gravity
+  - cosmology
+abstract: >
+  DRND outlines a background-independent framework in which spacetime, matter degrees
+  of freedom, and effective dynamical laws emerge from an evolving discrete graph of causal
+  relations. The spectral dimension is treated as a dynamical, environment-dependent observable,
+  motivating a toy phenomenology where topology-dependent propagation can bias cosmological
+  distance inference.
