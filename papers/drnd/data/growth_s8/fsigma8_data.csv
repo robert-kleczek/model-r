@@ -1,0 +1,7 @@
+label,z,k,fs8_obs,fs8_err,fs8_lcdm,source,notes
+SDSS_MGS,0.15,0.15,0.53,0.16,0.459462,SDSS final BAO+RSD table,audit-level Gaussianized point; use official covariance for final analysis
+BOSS_z038,0.38,0.15,0.497,0.045,0.475902,SDSS final BAO+RSD table,audit-level Gaussianized point; use official covariance for final analysis
+BOSS_z051,0.51,0.15,0.459,0.038,0.47382,SDSS final BAO+RSD table,audit-level Gaussianized point; use official covariance for final analysis
+eBOSS_LRG,0.7,0.15,0.473,0.041,0.461617,SDSS final BAO+RSD table,audit-level Gaussianized point; use official covariance for final analysis
+eBOSS_ELG,0.85,0.15,0.315,0.095,0.447364,SDSS final BAO+RSD table,audit-level Gaussianized point; use official covariance for final analysis
+eBOSS_QSO,1.48,0.15,0.462,0.045,0.376341,SDSS final BAO+RSD table,audit-level Gaussianized point; use official covariance for final analysis

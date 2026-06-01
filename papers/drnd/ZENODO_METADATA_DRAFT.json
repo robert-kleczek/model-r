@@ -1,0 +1,31 @@
+{
+  "title": "Discrete Relational Network Dynamics II: Spectral-Topological Transport, ATP Lensing, and Void-Wall Diagnostics",
+  "version": "2.0.0-alpha",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "creators": [
+    {
+      "name": "Kleczek, Robert",
+      "affiliation": "Independent Researcher"
+    }
+  ],
+  "description": "Zenodo reproduction archive for DRND II v2.0.0-alpha. Includes manuscript PDF, LaTeX source files, machine-readable audit values, galaxy/lensing ATP-vs-NFW scripts, void morphology scripts, and locked 19/2 topological-gain amplitude scripts.",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "DRND",
+    "emergent spacetime",
+    "spectral dimension",
+    "topological transport",
+    "weak lensing",
+    "cosmic voids",
+    "modified gravity",
+    "network theory"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.18615542",
+      "relation": "isNewVersionOf",
+      "resource_type": "publication-preprint"
+    }
+  ]
+}

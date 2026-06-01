@@ -1,0 +1,42 @@
+{
+  "galaxy_lensing_ATP_vs_NFW": {
+    "BIC_ATP_baryon": 31.702289318838176,
+    "BIC_NFW_baryon": 44.25992071280867,
+    "Delta_BIC_ATP_NFW": -12.557631393970496,
+    "source_file": "data/galaxy_lensing/publication_summary.json",
+    "reproduction_scripts": [
+      "scripts/galaxy_lensing/DRND_ST_PUBLICATION_TEST_SUITE.py",
+      "scripts/galaxy_lensing/DRND_ST_ATP_NORMALIZATION_AUDIT_V3_FAST_NO_NFW.py"
+    ]
+  },
+  "void_topological_gain_19_over_2": {
+    "A_DRND_19_over_2": 0.2029359,
+    "A_required": 0.2039621,
+    "ratio": 0.99497,
+    "relative_mismatch": 0.00503,
+    "BIC_19_over_2": 37.7,
+    "BIC_A_free": 39.9,
+    "BIC_null": 112.65,
+    "Delta_BIC_19_over_2_null": -74.95,
+    "Delta_BIC_19_over_2_A_free": -2.2,
+    "chi2_19_over_2": 37.7027,
+    "chi2_A_free": 37.7008,
+    "reproduction_script": "scripts/voids/DRND_VOID_LOCKED_PHYSICAL_AMPLITUDE_TEST_V2_TOPO_GAIN.py",
+    "geometry_input": "data/voids/geometry_summary_published_fast.json"
+  },
+  "void_morphology_zero_core_wide": {
+    "best_model_by_BIC": "zero_core_compensated_wall_DRND_refined",
+    "BIC_DRND_refined": 26.775297687036428,
+    "chi2_DRND_refined": 15.789174800355328,
+    "k_params_DRND_refined": 5,
+    "n_data": 9,
+    "BIC_null": 112.65093951314361,
+    "BIC_wall_only": 75.15706789228788,
+    "BIC_uncompensated": 77.61826892378129,
+    "Delta_BIC_DRND_null": -85.87564182610718,
+    "Delta_BIC_DRND_wall_only": -48.381770205251456,
+    "Delta_BIC_DRND_uncompensated": -50.84297123674486,
+    "source_file": "data/voids/summary_void_zero_core_wide.json",
+    "reproduction_script": "scripts/voids/DRND_VOID_ZERO_CORE_COMPENSATED_WALL_LIKELIHOOD.py"
+  }
+}

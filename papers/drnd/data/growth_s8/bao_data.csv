@@ -1,0 +1,15 @@
+z,observable,value,error,source
+0.106,DV_over_rd,2.97619,0.13284,6dFGS Beutler2011; converted from rd/DV=0.336±0.015
+0.15,DV_over_rd,4.47,0.17,SDSS DR7 MGS Ross2015 / SDSS final BAO table
+0.38,DM_over_rd,10.23,0.17,BOSS Galaxy BAO-only
+0.38,DH_over_rd,25.0,0.76,BOSS Galaxy BAO-only
+0.51,DM_over_rd,13.36,0.21,BOSS Galaxy BAO-only
+0.51,DH_over_rd,22.33,0.58,BOSS Galaxy BAO-only
+0.7,DM_over_rd,17.86,0.33,eBOSS LRG BAO-only
+0.7,DH_over_rd,19.33,0.53,eBOSS LRG BAO-only
+1.48,DM_over_rd,30.69,0.8,eBOSS Quasar BAO-only
+1.48,DH_over_rd,13.26,0.55,eBOSS Quasar BAO-only
+2.33,DM_over_rd,37.6,1.9,Ly-alpha auto BAO-only
+2.33,DH_over_rd,8.93,0.28,Ly-alpha auto BAO-only
+2.33,DM_over_rd,37.3,1.7,Ly-alpha quasar cross BAO-only
+2.33,DH_over_rd,9.08,0.34,Ly-alpha quasar cross BAO-only

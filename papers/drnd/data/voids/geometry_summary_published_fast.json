@@ -1,0 +1,14 @@
+{
+  "model": "DRND void zero-core compensated wall likelihood - published geometry minimal summary",
+  "source_note": "Minimal geometry summary reconstructed from the reported DRND v1.1.0-alpha void morphology result. Required by DRND_VOID_LOCKED_PHYSICAL_AMPLITUDE_TEST_V2_TOPO_GAIN.py. Use this for reproducing the published locked 19/2 amplitude diagnostic. For full morphology re-fitting, run DRND_VOID_ZERO_CORE_COMPENSATED_WALL_LIKELIHOOD.py.",
+  "decision": {
+    "preferred_DRND_geometry": {
+      "x_edge": 2.3875,
+      "w_edge": 0.05,
+      "x_wall": 1.5508,
+      "sigma_wall": 0.5777,
+      "C_comp": 1.149,
+      "A": 0.192816
+    }
+  }
+}

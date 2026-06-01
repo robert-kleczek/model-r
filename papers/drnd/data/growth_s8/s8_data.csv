@@ -1,0 +1,5 @@
+label,z,k,s8_obs,s8_err,s8_lcdm,source,notes
+DES_Y3_3x2pt,0.5,0.2,0.776,0.017,0.832,DES Y3 3x2pt,compressed summary point; correlations between surveys not included
+DES_Y3_cosmic_shear,0.5,0.2,0.772,0.018,0.832,DES Y3 cosmic shear optimized scale cuts,compressed summary point; correlations between surveys not included
+KiDS1000_multiprobe,0.5,0.2,0.766,0.02,0.832,KiDS-1000 multiprobe weak lensing and clustering,compressed summary point; correlations between surveys not included
+HSC_Y3_cosmic_shear,0.6,0.2,0.776,0.033,0.832,HSC Y3 cosmic shear power spectra,compressed summary point; correlations between surveys not included

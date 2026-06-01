@@ -1,0 +1,3021 @@
+\documentclass[12pt]{iopart}
+
+% --- PACKAGES ---
+\usepackage{iopams}     % IOP math symbols
+\usepackage{graphicx}   % Graphics support
+
+\usepackage{cmap} % Mapuje znaki do Unicode (naprawia copy-paste)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+% NOTE: iopart often works fine without 'cite'. If you see compilation issues, remove the next line.
+\usepackage{cite}
+% Optional: ORCID. If it causes issues on your system, remove the next line and \orcidlink in \author.
+\usepackage{orcidlink}
+\usepackage{placeins}
+
+% Optional (robustness with older LaTeX setups):
+% \usepackage[T1]{fontenc}
+% \usepackage[utf8]{inputenc}
+
+\begin{document}
+
+% --- TITLE PAGE ---
+\title[DRND II]{Discrete Relational Network Dynamics II: Spectral-Topological Transport, ATP Lensing, and Void-Wall Diagnostics}
+
+\author{Robert K\l{}eczek$^{1}$\,\orcidlink{0009-0009-9774-0446}}
+\address{$^{1}$Independent Researcher}
+\ead{r.kleczek@advocem.com}
+
+\vspace{10pt}
+\begin{indented}
+\item[]\textbf{Version 2.0.0-alpha} -- June 2026
+\end{indented}
+
+\begin{abstract}
+Discrete Relational Network Dynamics (DRND) is a background-independent framework in which spacetime, effective matter degrees of freedom, and macroscopic transport laws emerge from an evolving discrete graph of causal relations. The original DRND formulation introduced the event graph, spectral dimension, topology-dependent effective propagation, and qualitative topological screening as a broad framework for full emergence. In the present work we formulate DRND II, a frozen spectral/topological transport sector designed for direct empirical diagnostics.
+
+The fundamental object is an evolving relational graph
+\[
+G_n=(V_n,E_n),
+\]
+with physical time interpreted as a coarse-grained ordering of graph updates rather than a primitive background variable. Graph diffusion defines the operational spectral dimension $d_S(\tau)$ through the return probability $P_r(\tau)$, while mean first-passage transport provides an effective propagation layer. DRND II adds a frozen topological transport motif
+\[
+F^\star=P_9\oplus P_5\oplus P_5,\qquad |F^\star|=19,
+\]
+which is treated as the common structural core of the macroscopic transport, void-wall, and microscopic phase-resonance sectors.
+
+At galactic scales, DRND II introduces a topological acceleration scale
+\[
+a_0=\chi cH_0,\qquad \chi=0.18,
+\]
+and the spectral-transport acceleration law
+\[
+g_{\mathrm{ST}}=g_b\,\nu(g_b/a_0),
+\qquad
+\nu(x)=\frac12+\sqrt{\frac14+\frac1x}.
+\]
+In the frozen sector tested here, \(a_0\) is present-normalized and is not replaced by \(\chi cH(z)\).
+The associated ATP lensing sector uses an explicit baryonic contribution plus a fixed topological kernel,
+\[
+\Delta\Sigma_{\mathrm{total}}(R)
+=
+\Delta\Sigma_{\mathrm{baryon}}(R)
++
+\Delta\Sigma_{\mathrm{ATP}}(R),
+\qquad
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}.
+\]
+
+The fixed ATP+baryon model is compared with NFW+baryon controls using information criteria.
+
+The void sector provides an independent diagnostic of the same graph motif. DRND II predicts a compensated-wall topological gain
+\[
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}
+=
+\frac{19}{2},
+\]
+leading to the locked amplitude
+\[
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\]
+In the current SDSS \(R/R_v\) covariance diagnostic, this locked amplitude matches the required void-wall amplitude at the sub-percent level,
+\[
+A_{\mathrm{DRND}}^{19/2}/A_{\mathrm{required}}=0.99497,
+\]
+and is preferred by BIC over both the null model and the same morphology with a fitted amplitude.
+
+The paper reports these results as parameter-free positive diagnostic evidence for the frozen DRND-ST/ATP sector, not as a general exclusion of \(\Lambda\)CDM, NFW halos, or particle dark matter. Variable-\(c_{\mathrm{eff}}(z)\) cosmology, evolving \(\hbar\) and \(G\), CMB anomalies, full relativistic field equations, and complete microscopic graph dynamics are retained as future-work extensions. The dark-matter phenomenology is treated within the frozen DRND II sector through explicit baryons, spectral transport, ATP lensing, and void-wall topology; only its final microscopic interpretation is deferred. An appendix presents a conjectural microscopic phase-resonance mass-spectrum extension, including the charged-lepton resonance \(\theta_\ell=2/9\), but this is not claimed as a completed derivation of the Standard Model.
+\end{abstract}
+
+\vspace{2pc}
+\noindent{\it Keywords}: Emergent Spacetime, Spectral Dimension, Topological Transport, Galaxy Dynamics, Weak Lensing, Cosmic Voids, Modified Gravity, Network Theory
+
+\maketitle
+
+% --- MAIN CONTENT ---
+
+\section{Introduction: From Full Emergence to Frozen Spectral-Topological Transport}
+\label{sec:introduction}
+
+The $\Lambda$CDM model remains the standard effective description of cosmic structure and expansion. Its empirical success is substantial, but several persistent issues continue to motivate scrutiny of its underlying assumptions: the discrepancy between early- and late-Universe inferences of the Hubble parameter, the physical interpretation of the dark sector, the relation between baryonic matter and observed galactic acceleration, and the environmental dependence of large-scale lensing and void observables \cite{Riess2022,Labbe2023}. Most extensions address these problems by adding or modifying stress--energy components while retaining a smooth background manifold, fixed microscopic propagation laws, and spacetime geometry as a primitive input.
+
+Discrete Relational Network Dynamics (DRND) explores a different starting point. In DRND, the fundamental object is not a differentiable spacetime manifold populated by primitive particles, but an evolving discrete graph of causal relations. Spacetime, effective matter degrees of freedom, and macroscopic transport laws are treated as coarse-grained outputs of this relational substrate. The original DRND formulation introduced this as a broad framework of full emergence: space arises from adjacency structure, time from causal update order, matter from stable topological excitations, and effective constants from coarse-grained transport and response properties of the network.
+
+The present paper formulates DRND II: a frozen spectral/topological transport sector designed to convert the broad framework into a set of explicit, falsifiable diagnostics. The goal is not to complete the full microscopic theory, nor to claim a general exclusion of $\Lambda$CDM, NFW halos, or particle dark matter. Instead, the aim is narrower: to define a compact transport core whose normalization is fixed before empirical comparison and whose performance can be tested against baryonic, NFW-based, and null controls.
+
+The basic substrate is written as an evolving relational graph
+\begin{equation}
+G_n=(V_n,E_n),
+\end{equation}
+where $V_n$ is the set of elementary relational events after $n$ update steps and $E_n$ is the corresponding set of causal or transport relations. Physical time is not introduced as a fundamental external variable. It is interpreted as a coarse-grained ordering of graph updates. In this sense, the primitive temporal structure is the causal update order, while continuum time is an emergent macroscopic parameter.
+
+The first operational layer is spectral transport. Diffusion on the graph defines a return probability $P_r(\tau)$ and a scale-dependent spectral dimension
+\begin{equation}
+d_S(\tau)=-2\,\frac{d\ln P_r(\tau)}{d\ln \tau}.
+\end{equation}
+This allows dimensionality to become a dynamical and environment-dependent observable rather than a fixed integer property of a background manifold. Dense, highly connected regions and sparse or near-percolative regions may therefore differ not only in matter density, but also in effective transport structure.
+
+DRND II adds a frozen topological transport motif,
+\begin{equation}
+F^\star=P_9\oplus P_5\oplus P_5,\qquad |F^\star|=19.
+\end{equation}
+This motif is treated as the common structural core of the macroscopic transport sector, the void-wall sector, and the conjectural microscopic phase-resonance appendix. The interpretation used in this paper is deliberately limited: $F^\star$ is a finite relational transport motif, not yet a completed derivation of the Standard Model particle spectrum or a unique microscopic graph dynamics.
+
+At galactic scales, the frozen sector introduces the topological acceleration scale
+\begin{equation}
+a_0=\chi cH_0,\qquad \chi=0.18.
+\end{equation}
+The corresponding spectral-transport acceleration law is
+\begin{equation}
+g_{\mathrm{ST}}=g_b\,\nu(g_b/a_0),
+\end{equation}
+with
+\begin{equation}
+\nu(x)=\frac12+\sqrt{\frac14+\frac1x}.
+\end{equation}
+Here $g_b$ is the baryonic acceleration computed from the observed baryonic component. The fixed scale $a_0$ is not re-tuned galaxy by galaxy. The associated ATP lensing sector uses an explicit baryonic term plus a fixed topological contribution,
+\begin{equation}
+\Delta\Sigma_{\mathrm{total}}(R)
+=
+\Delta\Sigma_{\mathrm{baryon}}(R)
++
+\Delta\Sigma_{\mathrm{ATP}}(R),
+\end{equation}
+with the locked normalization
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}.
+\end{equation}
+The numerical factor \(1/4\) is adopted as part of the fixed DRND II ATP kernel.
+
+The void sector provides an independent test of the same graph cardinality. The original DRND screening picture distinguished locally screened halo environments from sparse void-like regions. DRND II sharpens this into a compensated-wall diagnostic. Voids are not modeled as negative galaxies; they are treated as low-connectivity interiors bounded by topologically active wall regions. The frozen graph motif predicts the baryonic topological gain
+\begin{equation}
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}
+=
+\frac{19}{2},
+\end{equation}
+and therefore the locked void-wall amplitude
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\end{equation}
+This amplitude is not fitted to the void data. In the SDSS $R/R_v$ covariance diagnostic considered below, the locked value matches the required diagnostic amplitude at the sub-percent level,
+\begin{equation}
+\frac{A_{\mathrm{DRND}}^{19/2}}{A_{\mathrm{required}}}=0.99497,
+\end{equation}
+and is preferred by the Bayesian Information Criterion over both the null model and the same compensated-wall morphology with a fitted amplitude.
+
+The empirical part of this paper is organized around three validation claims. First, in the galaxy/lensing sector, the fixed-normalization ATP+baryon model is compared with an NFW+baryon control under the same information-criterion accounting. Second, in the void morphology sector, zero-core compensated-wall profiles are compared with null, wall-only, and uncompensated alternatives. Third, in the void amplitude sector, the graph-predicted gain \(19/2\) is tested against the amplitude required by the SDSS \(R/R_v\) covariance diagnostic. These tests are presented as positive diagnostic evidence for the frozen DRND-ST/ATP sector, not as a final cosmological detection.
+
+Several elements of the earlier DRND framework are deliberately not promoted to core claims in this version. 
+Variable-\(c_{\mathrm{eff}}(z)\) cosmology, evolving \(\hbar\) and \(G\), CMB anomalies, full relativistic field equations, and complete microscopic graph dynamics are retained as future-work extensions. The dark-matter phenomenology is treated within the frozen DRND II sector through explicit baryons, spectral transport, ATP lensing, and void-wall topology; only its final microscopic interpretation is deferred. The microscopic appendix is included because the charged-lepton sector exhibits a compact resonance structure, but it is not claimed as a completed derivation of the Standard Model.
+
+The central thesis of DRND II is therefore precise and limited: a frozen relational graph motif can define a spectral/topological transport sector with fixed amplitudes in galaxy, lensing, and void-wall diagnostics. The scientific question addressed here is whether this fixed sector provides better predictive compression than the tested controls without introducing post-hoc rescue parameters. The answer is evaluated through explicit model comparison, residual diagnostics, and stated falsification criteria.
+
+\section{Relation to DRND v1.0.3}
+\label{sec:relation_v103}
+
+DRND v1.0.3 introduced Discrete Relational Network Dynamics as a broad framework for full emergence. Its primary role was ontological and operational: to replace the assumption of a primitive spacetime manifold by an evolving graph of causal relations, and to define measurable graph observables from which effective dimension and transport could be reconstructed. DRND II retains this foundation but changes the status of the theory from a broad framework with toy propagation models to a frozen spectral/topological transport sector with explicit empirical diagnostics.
+
+The baseline object of the original formulation was a directed relational graph
+\begin{equation}
+G(V,E),
+\end{equation}
+where vertices represent elementary causal events and directed edges represent immediate causal influence. DRND II refines this notation to an update-indexed graph
+\begin{equation}
+G_n=(V_n,E_n),
+\end{equation}
+where \(n\) labels the causal update step. This change is not a new ontology; it makes explicit that the graph is dynamical. The continuum variables used in macroscopic physics are interpreted as coarse-grained descriptions of the evolving relational structure.
+
+The treatment of time is also inherited from v1.0.3. Time is not taken as a fundamental background coordinate. Instead, the primitive temporal information is the ordering induced by graph updates:
+\begin{equation}
+v_i\prec v_j
+\end{equation}
+when event \(v_i\) is an immediate or indirect causal precursor of event \(v_j\). A macroscopic time parameter is therefore an effective variable obtained after coarse-graining,
+\begin{equation}
+t_{\mathrm{eff}}
+=
+\mathcal{T}(G_n,\Delta G_n,\mathcal{C}),
+\end{equation}
+where \(\mathcal{C}\) denotes the chosen coarse-graining prescription. DRND II keeps this update-order interpretation and later extends it through the phase-time diagnostic in section~\ref{sec:phase_time}.
+
+The operational definition of spectral dimension is also unchanged in principle. In v1.0.3, diffusion on the graph defined a return probability \(P_r(\tau)\), from which the scale-dependent spectral dimension was extracted as
+\begin{equation}
+d_S(\tau)
+=
+-2\,\frac{d\ln P_r(\tau)}{d\ln \tau}.
+\end{equation}
+This remains the central measure of effective dimensionality in DRND II. The important difference is that in the present version spectral dimension is no longer used only to motivate a toy \(c_{\mathrm{eff}}(z)\) cosmology. It becomes part of a broader spectral/topological transport layer that connects graph connectivity, galactic acceleration, lensing amplitudes, and void-wall morphology.
+
+The previous version also introduced an effective propagation speed on a graph by combining graph-geodesic distance and mean first-passage time. For a region \(\mathcal{R}\), the effective speed was written as
+\begin{equation}
+c_{\mathrm{eff}}(\mathcal{R})
+=
+\frac{
+\left\langle d_G(i,j)\right\rangle_{i,j\in\mathcal{R}}
+}{
+\left\langle T_{FP}(i\to j)\right\rangle_{i,j\in\mathcal{R}}
+}
+\,\ell_0,
+\end{equation}
+where \(d_G(i,j)\) is the directed or symmetrized graph distance, \(T_{FP}(i\to j)\) is the mean first-passage time, and \(\ell_0\) is a microscopic edge-length scale. DRND II preserves this as the generic transport interpretation, but the main empirical sector is now formulated in terms of fixed spectral/topological amplitudes rather than a freely varying effective propagation speed.
+
+The central new ingredient of DRND II is the frozen topological motif
+\begin{equation}
+F^\star=P_9\oplus P_5\oplus P_5,
+\qquad |F^\star|=19.
+\end{equation}
+This motif was not part of the operational core of v1.0.3. In the present version it acts as the common structural basis for three sectors:
+\begin{enumerate}
+    \item the galactic spectral-transport sector, through the fixed acceleration scale \(a_0=\chi cH_0\);
+    \item the ATP lensing sector, through the locked normalization \(A_{\mathrm{ATP}}\);
+    \item the void-wall sector, through the graph-predicted gain \(\eta_{\mathrm{wall}}=19/2\).
+\end{enumerate}
+The same motif is also used in \ref{app:mass_spectrum}, the mass-spectrum appendix, as the organizing structure for a conjectural microscopic phase-resonance mass spectrum. That appendix is not treated as a completed derivation of the Standard Model; it is included to document the microscopic extension suggested by the same frozen graph core.
+
+Several elements of v1.0.3 are therefore reclassified in this work. The variable-\(c_{\mathrm{eff}}(z)\) interpretation of late-time acceleration, the possible evolution of \(\hbar\) and \(G\), CMB-anomaly interpretations, full relativistic field equations, and complete graph microdynamics are retained as future-work directions. The dark-matter phenomenology itself is not postponed: DRND II addresses it at the effective level through explicit baryons, the spectral-transport acceleration law, the ATP lensing kernel, and the void-wall topological-gain sector. What remains open is the microscopic interpretation of any residual dark component, including whether it should be represented by particle dark matter, stable graph excitations, environmental topology, or a fully emergent transport-only mechanism.
+
+The practical change from v1.0.3 to DRND II can therefore be summarized as follows:
+\begin{eqnarray}
+\mathrm{DRND\ I}
+&=&
+\mathrm{relational\ ontology}
+\nonumber\\
+&&+
+\mathrm{spectral\ transport\ framework}
+\nonumber\\
+&&+
+\mathrm{toy\ cosmological\ directions}.
+\nonumber
+\end{eqnarray}
+whereas
+\begin{eqnarray}
+\mathrm{DRND\ II}
+&=&
+\mathrm{relational\ ontology}
+\nonumber\\
+&&+
+\mathrm{frozen\ spectral/topological\ transport\ core}
+\nonumber\\
+&&+
+\mathrm{galaxy,\ lensing,\ and\ void\ diagnostics}.
+\nonumber
+\end{eqnarray}
+The scope of the present paper is thus narrower but more testable. It does not attempt to complete all directions opened in v1.0.3. Instead, it isolates the first fixed-amplitude sector of the framework and asks whether that sector survives direct comparison with control models and null hypotheses.
+
+\section{Relational Substrate and Causal Update Order}
+\label{sec:relational_substrate}
+
+DRND begins from a relational rather than geometric ontology. The fundamental object is not a differentiable manifold equipped with fields, but an evolving graph of causal relations. At update step \(n\), the substrate is written as
+\begin{equation}
+G_n=(V_n,E_n),
+\end{equation}
+where \(V_n\) is the set of elementary relational events and \(E_n\subseteq V_n\times V_n\) is the set of directed causal or transport relations.
+
+A vertex \(v\in V_n\) is not interpreted as a point in pre-existing space. It represents an elementary event: a minimal unit of causal update, interaction, or relational ``becoming''. An edge
+\begin{equation}
+e_{ij}=(v_i,v_j)\in E_n
+\end{equation}
+represents a direct admissible relation from \(v_i\) to \(v_j\). Depending on the coarse-graining level, this relation may be interpreted as immediate causal precedence, a transport channel, or an elementary update dependency. The graph itself is therefore not embedded in spacetime. Rather, spacetime observables are reconstructed from graph connectivity, update order, diffusion, and transport statistics.
+
+The primitive temporal structure is the partial order induced by graph updates. We write
+\begin{equation}
+v_i\prec v_j
+\end{equation}
+when \(v_i\) is an immediate or indirect causal precursor of \(v_j\). This order may be generated by sequential graph growth, local rewiring, edge activation, or a more general update rule. DRND II does not require a unique microscopic update dynamics at this stage. It requires only that the effective history of the graph induces a causal order from which macroscopic time can be reconstructed.
+
+The update index \(n\) is not identical to physical time. It labels the ordering of elementary graph transformations. A continuum time parameter is an emergent coarse-grained variable,
+\begin{equation}
+t_{\mathrm{eff}}
+=
+\mathcal{T}(G_n,\Delta G_n,\mathcal{C}),
+\end{equation}
+where \(\Delta G_n=G_{n+1}-G_n\) denotes the local graph change between update steps and \(\mathcal{C}\) denotes a coarse-graining prescription. Different physical clocks correspond to different stable coarse-grained processes on the same relational substrate.
+
+This distinction is central to DRND. The statement
+\begin{equation}
+t\notin\mathcal{F}_{\mathrm{fund}}
+\end{equation}
+does not mean that time is absent from physics. It means that continuum time is not part of the primitive variable set \(\mathcal{F}_{\mathrm{fund}}\). Time appears as an ordered, measurable macroscopic parameter only after stable update patterns have formed. In this sense, the microscopic theory is ordered but not embedded in an external temporal background.
+
+Spatial structure is treated analogously. Distance is not fundamental. At the graph level, the basic notion is relational adjacency. For two vertices \(v_i,v_j\), one may define a graph-geodesic distance
+\begin{equation}
+d_G(i,j)
+=
+\min_{\Gamma:i\to j} |\Gamma|,
+\end{equation}
+where \(\Gamma\) is a directed path from \(i\) to \(j\) and \(|\Gamma|\) is its edge length. If the directed graph is not strongly connected, one may use a symmetrized distance or restrict the definition to causally connected subregions. The appropriate choice depends on the observable being reconstructed.
+
+A region \(\mathcal{R}\subseteq V_n\) is defined as a subgraph together with a coarse-graining rule:
+\begin{equation}
+\mathcal{R}
+=
+(V_{\mathcal{R}},E_{\mathcal{R}},\mathcal{C}_{\mathcal{R}}),
+\end{equation}
+where \(V_{\mathcal{R}}\subseteq V_n\), \(E_{\mathcal{R}}\subseteq E_n\), and \(\mathcal{C}_{\mathcal{R}}\) specifies the scale at which the region is probed. This is necessary because the same microscopic graph can produce different effective descriptions depending on the resolution of the measurement. A galactic halo, a cosmic void, and a microscopic phase-resonance cell are therefore not different kinds of fundamental objects; they are different coarse-grained regimes of the same relational substrate.
+
+Matter-like structures are represented as stable localized update patterns or topological excitations of the graph. In the broad DRND ontology, such structures may be described as graph solitons, knots, or persistent phase-resonance defects. DRND II does not require a completed microscopic particle derivation for the macroscopic transport tests developed below. It requires only that stable localized graph patterns can act as effective sources of baryonic mass, transport response, and lensing projection after coarse-graining. A conjectural microscopic mass-spectrum extension is given in the mass-spectrum appendix.
+
+The transition from the relational substrate to effective geometry proceeds through operational observables. The next section introduces diffusion on \(G_n\), return probabilities, spectral dimension, graph-geodesic distance, and mean first-passage transport. These quantities define the measurable bridge between the microscopic event graph and the macroscopic transport laws used in the galaxy, lensing, and void-wall sectors.
+
+\section{Spectral Geometry and Transport on Graphs}
+\label{sec:spectral_transport}
+
+The relational substrate becomes physically testable only after operational observables have been defined on the graph. DRND uses diffusion and transport statistics as the first such observables. They provide an effective geometry without assuming a background manifold.
+
+Let \(A\) be the adjacency matrix of the graph \(G_n=(V_n,E_n)\). For an unweighted directed graph, \(A_{ij}=1\) if there is an edge from \(v_i\) to \(v_j\), and \(A_{ij}=0\) otherwise. The out-degree of vertex \(i\) is
+\begin{equation}
+k_i^{\mathrm{out}}=\sum_j A_{ij}.
+\end{equation}
+For vertices with \(k_i^{\mathrm{out}}>0\), the unbiased random-walk transition matrix is
+\begin{equation}
+P_{ij}=\frac{A_{ij}}{k_i^{\mathrm{out}}}.
+\label{eq:transition_matrix}
+\end{equation}
+For weighted graphs, \(A_{ij}\) may be replaced by a non-negative edge weight \(w_{ij}\), giving
+\begin{equation}
+P_{ij}=\frac{w_{ij}}{\sum_j w_{ij}}.
+\end{equation}
+The unweighted case is sufficient for the formal definitions below; weights can be introduced when a specific microscopic dynamics is specified.
+
+The \(\tau\)-step transition probability is given by \((P^\tau)_{ij}\). The return probability averaged over the probed region \(\mathcal{R}\subseteq V_n\) is
+\begin{equation}
+P_r(\tau;\mathcal{R})
+=
+\frac{1}{|V_{\mathcal{R}}|}
+\sum_{i\in V_{\mathcal{R}}}
+(P^\tau)_{ii}.
+\label{eq:return_probability_region}
+\end{equation}
+When the region is clear from context, we write simply \(P_r(\tau)\). The scale-dependent spectral dimension is then defined by
+\begin{equation}
+d_S(\tau;\mathcal{R})
+=
+-2\,\frac{d\ln P_r(\tau;\mathcal{R})}{d\ln \tau}.
+\label{eq:spectral_dimension}
+\end{equation}
+This definition does not assume that the graph approximates a smooth integer-dimensional manifold at all scales. Instead, it measures how diffusion explores the relational structure.
+
+In numerical or observationally mapped graph ensembles, the derivative in equation~(\ref{eq:spectral_dimension}) is estimated over a finite scaling window. A symmetric finite-difference estimator is
+\begin{equation}
+d_S(\tau_k)
+\simeq
+-2
+\frac{
+\ln P_r(\tau_{k+1})-\ln P_r(\tau_{k-1})
+}{
+\ln \tau_{k+1}-\ln \tau_{k-1}
+}.
+\end{equation}
+The resulting \(d_S(\tau)\) may flow with scale. A locally manifold-like screened region can exhibit \(d_S\simeq 3\) over the relevant observational window, while sparse or near-percolative regions may exhibit \(d_S<3\). Highly connected or small-world regimes may produce effective transport behavior corresponding to larger apparent connectivity.
+
+Spectral dimension alone does not define a propagation law. DRND therefore also uses first-passage transport. For two vertices \(v_i,v_j\), let \(d_G(i,j)\) denote the directed or symmetrized graph-geodesic distance. Let \(T_{FP}(i\to j)\) denote the mean first-passage time for a random walker initialized at \(i\) to first reach \(j\). For a region \(\mathcal{R}\), the effective transport speed is defined as
+\begin{equation}
+c_{\mathrm{eff}}(\mathcal{R})
+=
+\frac{
+\left\langle d_G(i,j)\right\rangle_{i,j\in\mathcal{R}}
+}{
+\left\langle T_{FP}(i\to j)\right\rangle_{i,j\in\mathcal{R}}
+}
+\,\ell_0,
+\label{eq:ceff_region}
+\end{equation}
+where \(\ell_0\) is the microscopic length assigned to one graph edge. This definition should be interpreted operationally: it is the coarse-grained propagation rate inferred from graph traversal statistics, not necessarily the locally measured speed of light in a screened laboratory environment.
+
+Equation~(\ref{eq:ceff_region}) gives a bridge between connectivity and effective propagation. In dense, highly connected regions, both graph-geodesic distances and first-passage times may be reduced. In sparse or near-percolative regions, tortuosity and bottlenecks can increase first-passage times, producing slower effective transport. This is the graph-theoretic basis of the DRND distinction between screened halo-like environments and unscreened void-like environments.
+
+The most general phenomenological relation between spectral dimension and transport may be written as
+\begin{equation}
+c_{\mathrm{eff}}(\mathcal{R})
+=
+c_0\,\mathcal{F}\!\left[d_S(\tau;\mathcal{R}),\mathcal{K}_{\mathcal{R}}\right],
+\end{equation}
+where \(\mathcal{K}_{\mathcal{R}}\) denotes additional connectivity data such as clustering, bottleneck structure, modularity, and line-of-sight environment. In the original DRND formulation, a compact ansatz was used,
+\begin{equation}
+c_{\mathrm{eff}}(d_S)
+=
+c_0
+\left(\frac{d_S}{3}\right)^\gamma,
+\label{eq:ceff_ds_ansatz}
+\end{equation}
+with \(\gamma>0\). In DRND II, equation~(\ref{eq:ceff_ds_ansatz}) is retained as a useful phenomenological diagnostic, but it is no longer the central empirical claim. The present paper focuses instead on the frozen spectral/topological amplitudes defined by the ST/ATP and void-wall sectors.
+
+The operational distinction between local and environmental transport is summarized as follows:
+\begin{eqnarray}
+d_S(\mathcal{R})\simeq 3
+&\Rightarrow&
+\textrm{screened, locally manifold-like transport},
+\nonumber\\
+d_S(\mathcal{R})<3
+&\Rightarrow&
+\textrm{sparse or void-like transport}.
+\end{eqnarray}
+Regions in the second class are expected to show enhanced topological sensitivity.
+This screening language does not assert that all void observables are determined by \(d_S\) alone. It states that void-like regions are natural laboratories for detecting deviations from locally screened transport because their connectivity structure is less redundant and more sensitive to graph topology.
+
+The graph observables introduced in this section provide the formal bridge to the frozen core introduced below. The motif \(F^\star=P_9\oplus P_5\oplus P_5\) does not replace the spectral definitions; it supplies a fixed topological structure whose projections define the galactic ST law, the ATP lensing kernel, and the \(19/2\) void-wall gain. In this sense, DRND II proceeds from operational graph transport to fixed-amplitude phenomenology.
+
+\section{Phase Time and Effective Dimensional Flow}
+\label{sec:phase_time}
+
+The previous section defined spectral dimension as an operational property of graph diffusion. DRND II extends this idea by distinguishing between spatial spectral flow and effective temporal flow. The purpose is not to introduce a second background time variable, but to describe how the coarse-grained rate of physical processes may depend on the phase structure of graph updates.
+
+In a continuum description, one usually assumes a fixed decomposition into three spatial dimensions and one temporal dimension. In DRND this decomposition is emergent. The graph has an update order, but not a primitive continuum clock. Consequently, both spatial dimensionality and temporal rate must be reconstructed from relational observables. We therefore introduce a phase-time diagnostic that tracks how deviations in spectral connectivity affect the effective temporal ordering seen by coarse-grained observers.
+
+Let \(a\) denote the cosmological scale factor used in the effective macroscopic description. We parameterize the spatial spectral dimension as
+\begin{equation}
+d_s(a)=3-\epsilon_s(a),
+\label{eq:ds_a}
+\end{equation}
+where \(\epsilon_s(a)\) measures the departure from the locally screened three-dimensional transport regime. In screened halo-like environments one expects
+\begin{equation}
+\epsilon_s(a)\simeq 0,
+\end{equation}
+whereas in sparse or void-like regimes the effective graph exploration may satisfy
+\begin{equation}
+\epsilon_s(a)>0.
+\end{equation}
+The function \(\epsilon_s(a)\) is not assumed to be universal. It is a coarse-grained diagnostic of the graph state, and may depend on environment, scale, and line-of-sight structure.
+
+The associated effective temporal dimension is written as
+\begin{equation}
+d_t(a)=1-\gamma_t\epsilon_s(a),
+\label{eq:dt_a}
+\end{equation}
+where \(\gamma_t\) is a dimensionless response coefficient. Equation~(\ref{eq:dt_a}) states that a departure from screened spatial transport can also affect the effective phase-time flow. If \(\gamma_t=0\), then spatial spectral deformation does not alter the coarse-grained temporal rate. If \(\gamma_t>0\), then reduced spatial spectral accessibility is accompanied by a reduction in effective temporal transport dimension.
+
+The pair
+\begin{equation}
+\left(d_s(a),d_t(a)\right)
+\end{equation}
+should be interpreted as a diagnostic of the coarse-grained graph state, not as a replacement for the full metric structure of general relativity. In particular, DRND II does not claim here a complete relativistic field equation for \(d_t(a)\). The role of equations~(\ref{eq:ds_a}) and~(\ref{eq:dt_a}) is to provide a compact language for describing phase-dependent transport regimes.
+
+This construction is motivated by the update-order ontology. If the microscopic graph evolves through discrete relational updates, then macroscopic clocks are stable periodic or quasi-periodic processes embedded in that update sequence. A clock does not measure the update index \(n\) directly. It measures a phase-stable pattern,
+\begin{equation}
+\Phi_{\mathrm{clock}}:G_n\rightarrow S^1,
+\end{equation}
+whose recurrence defines an effective time interval. Different graph environments may support different phase-stability conditions, leading to environment-dependent effective timing without requiring an external absolute time.
+
+We therefore distinguish three levels of temporal description:
+\begin{enumerate}
+    \item \textbf{Update order:} the primitive causal order \(v_i\prec v_j\) generated by graph evolution.
+    \item \textbf{Phase time:} the recurrence structure of stable update patterns, represented by phase variables such as \(\Phi_{\mathrm{clock}}\).
+    \item \textbf{Continuum time:} the macroscopic time coordinate reconstructed after coarse-graining many update cycles.
+\end{enumerate}
+Only the first level is primitive. The second and third levels are emergent.
+
+The phase-time diagnostic also clarifies the meaning of local screening. In a dense and dynamically stable region, graph update patterns can support robust local clocks whose effective dimension is close to the usual value:
+\begin{equation}
+d_s\simeq 3,\qquad d_t\simeq 1.
+\end{equation}
+Such regions are locally screened: laboratory clocks, atomic spectra, and local gravitational measurements need not directly reveal the global evolution of the graph. In contrast, void-like or low-connectivity regions can have
+\begin{equation}
+d_s<3,
+\end{equation}
+and, if \(\gamma_t\neq 0\),
+\begin{equation}
+d_t<1.
+\end{equation}
+These are the regimes in which line-of-sight propagation, lensing residuals, and void-wall diagnostics become natural probes of relational transport.
+
+For the purposes of DRND II, the detailed functional form of \(\epsilon_s(a)\) is not fitted as a free cosmological function. The empirical tests developed below use fixed amplitudes derived from the frozen graph motif rather than arbitrary phase-time functions. Equations~(\ref{eq:ds_a}) and~(\ref{eq:dt_a}) therefore serve as the formal bridge between the original DRND idea of environment-dependent spectral dimension and the fixed ST/ATP and void-wall sectors introduced in the next sections.
+
+The important point is that phase time does not introduce a new adjustable mechanism into the validation pipeline. It organizes the interpretation of transport regimes. The frozen empirical claims of DRND II remain the fixed acceleration scale \(a_0=\chi cH_0\), the ATP lensing normalization, and the graph-predicted void-wall gain \(19/2\). Phase time explains why these quantities are treated as projections of the same relational update structure rather than as unrelated phenomenological constants.
+
+\section{The Frozen Topological Core}
+\label{sec:frozen_core}
+
+DRND II introduces a fixed topological motif that acts as the common structural core of the macroscopic and microscopic sectors considered in this paper. The motif is defined as
+\begin{equation}
+F^\star
+=
+P_9\oplus P_5^{(1)}\oplus P_5^{(2)},
+\qquad
+|F^\star|=19.
+\label{eq:fstar}
+\end{equation}
+Here \(P_n\) denotes a path graph with \(n\) vertices, and \(\oplus\) denotes a direct disjoint composition at the level of the minimal transport basis. The notation \(P_5^{(1)}\) and \(P_5^{(2)}\) distinguishes the two five-vertex environmental branches.
+
+The decomposition in equation~(\ref{eq:fstar}) is interpreted as
+\begin{equation}
+P_9
+=
+\textrm{local rigid transport channel},
+\end{equation}
+and
+\begin{equation}
+P_5^{(1)}\oplus P_5^{(2)}
+=
+\textrm{environmental or relational side channels}.
+\end{equation}
+The \(P_9\) channel supplies the local resonant backbone, while the two \(P_5\) channels encode environmental delay, compensation, or phase leakage. This interpretation is used throughout DRND II, but it should not be read as a completed microscopic derivation of all interactions. It is a frozen transport motif whose projections are tested in several sectors.
+
+The total cardinality
+\begin{equation}
+|F^\star|=9+5+5=19
+\label{eq:fstar_cardinality}
+\end{equation}
+plays a central role. In the macroscopic void sector it determines the graph-predicted compensated-wall gain
+\begin{equation}
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}
+=
+\frac{19}{2}.
+\label{eq:eta_wall_from_fstar}
+\end{equation}
+This factor is inherited from the frozen graph core and is not fitted to the void data.
+
+The motif has three roles in this paper:
+\begin{enumerate}
+    \item It defines the topological origin of the void-wall gain \(\eta_{\mathrm{wall}}=19/2\).
+    \item It supplies the relational interpretation of the ATP lensing sector as a projection of baryonic transport through environmental graph channels.
+    \item It provides the organizing structure for the conjectural microscopic phase-resonance mass spectrum in \ref{app:mass_spectrum}.
+\end{enumerate}
+
+The adjective ``frozen'' is used in a specific technical sense. In DRND II the structure \(F^\star\) is not varied across systems, environments, or data sets. Its cardinality, decomposition, and sector assignments are fixed before empirical comparison. In particular,
+\begin{equation}
+|F^\star|=19
+\end{equation}
+is not a fit parameter. The use of \(|F^\star|/2=19/2\) in the void-wall amplitude is therefore a parameter-free consequence of the adopted graph core.
+
+This is different from introducing a phenomenological amplitude and fitting it to each data set. The void-sector test below compares a locked topological prediction,
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z),
+\label{eq:adrnd_19_2_preview}
+\end{equation}
+with the amplitude required by the SDSS \(R/R_v\) covariance diagnostic. The factor \(19/2\) is inherited from equation~(\ref{eq:eta_wall_from_fstar}), not inferred from the void data.
+
+The same fixed-core philosophy also constrains the galaxy and lensing sectors. The topological acceleration scale \(a_0=\chi cH_0\), the spectral-transport acceleration law, and the ATP lensing kernel introduced in the next sections are not supplemented by additional environment-dependent rescue factors in the baseline DRND II model. This is essential for the information-criterion tests: the model must be evaluated as a fixed-amplitude theory rather than as a flexible fitting template.
+
+The motif \(F^\star\) should also be distinguished from a complete graph microdynamics. A full microscopic theory would specify the update rule
+\begin{equation}
+G_n\longrightarrow G_{n+1},
+\end{equation}
+the allowed local reconnections, the stability conditions for excitations, and the continuum limit of the resulting dynamics. DRND II does not claim to have completed this program. Instead, it freezes a minimal topological basis and tests whether its projections organize macroscopic observables better than the chosen controls.
+
+A compact combinatorial motivation for this choice is given in \ref{app:fstar_derivation}. In the main text we use only the frozen output of that construction. The motif is held fixed across all validation modules, and its cardinality is not adjusted to improve agreement with galaxy, lensing, or void data.
+
+The central hypothesis of DRND II can therefore be stated operationally: macroscopic transport amplitudes and microscopic phase-resonance structures are distinct projections of the same frozen relational motif \(F^\star\). The main text tests this hypothesis at the macroscopic level through the ST/ATP and void-wall diagnostics. \ref{app:mass_spectrum} records the corresponding microscopic mass-spectrum extension.
+
+\section{Topological Acceleration Scale and Spectral-Transport Dynamics}
+\label{sec:st_dynamics}
+
+The frozen graph core introduced above becomes observationally relevant only after it is connected to a macroscopic transport scale. DRND II identifies this scale with a cosmologically normalized acceleration,
+\begin{equation}
+a_0=\chi cH_0,
+\label{eq:a0_def}
+\end{equation}
+where \(c\) is the locally measured speed of light, \(H_0\) is the present Hubble parameter, and \(\chi\) is a dimensionless topological transport factor. In the frozen DRND II sector we adopt
+\begin{equation}
+\chi=0.18.
+\label{eq:chi_value}
+\end{equation}
+For
+\begin{equation}
+H_0=67.4~\mathrm{km\,s^{-1}\,Mpc^{-1}},
+\end{equation}
+this gives
+\begin{equation}
+a_0
+=
+1.1787\times 10^{-10}~\mathrm{m\,s^{-2}}.
+\label{eq:a0_value}
+\end{equation}
+In DRND II, \(a_0\) is a frozen present-normalized transport scale:
+\begin{equation}
+a_0^{\mathrm{DRND\,II}}
+=
+\chi cH_0
+=
+\mathrm{const}.
+\label{eq:a0_frozen_main}
+\end{equation}
+It is not promoted in this paper to a redshift-dependent quantity
+\begin{equation}
+a_0(z)\neq \chi cH(z).
+\end{equation}
+Consequently, the same value of \(a_0\) is used when applying the frozen ST/ATP law to galaxies, lensing systems, or void diagnostics at different redshifts. Replacing \(H_0\) by \(H(z)\) would define a different dynamical extension of DRND, not the frozen sector tested in this work.
+Equation~(\ref{eq:a0_def}) should be interpreted as a transport normalization, not as a statement that the cosmological constant is fundamental. The factor \(cH_0\) gives the natural acceleration scale associated with the present cosmological expansion rate, while \(\chi\) encodes the fraction of this horizon-scale transport rate projected into the galactic spectral-transport regime. In DRND II, \(\chi\) is not adjusted object by object. It is part of the frozen model specification.
+
+The baryonic acceleration is denoted by
+\begin{equation}
+g_b(r),
+\end{equation}
+computed from the observed baryonic mass distribution using the same baryonic model used in the corresponding control fits. For a spherically idealized baryonic mass profile this reduces to
+\begin{equation}
+g_b(r)=\frac{GM_b(r)}{r^2},
+\end{equation}
+but the empirical implementation may include disk, bulge, and gas components as appropriate.
+
+DRND II defines the spectral-transport acceleration as
+\begin{equation}
+g_{\mathrm{ST}}(r)
+=
+g_b(r)\,
+\nu\!\left(\frac{g_b(r)}{a_0}\right),
+\label{eq:gst_def}
+\end{equation}
+with the fixed interpolation function
+\begin{equation}
+\nu(x)
+=
+\frac12+\sqrt{\frac14+\frac1x}.
+\label{eq:nu_def}
+\end{equation}
+The dimensionless argument is
+\begin{equation}
+x=\frac{g_b}{a_0}.
+\end{equation}
+Equivalently,
+\begin{equation}
+g_{\mathrm{ST}}
+=
+g_b
+\left[
+\frac12+
+\sqrt{
+\frac14+\frac{a_0}{g_b}
+}
+\right].
+\label{eq:gst_explicit}
+\end{equation}
+
+The high-acceleration regime is recovered when
+\begin{equation}
+g_b\gg a_0.
+\end{equation}
+In this limit,
+\begin{equation}
+\nu(g_b/a_0)\rightarrow 1,
+\end{equation}
+and therefore
+\begin{equation}
+g_{\mathrm{ST}}\rightarrow g_b.
+\end{equation}
+Thus locally screened, high-acceleration systems recover the baryonic Newtonian limit.
+
+In the low-acceleration regime,
+\begin{equation}
+g_b\ll a_0,
+\end{equation}
+equation~(\ref{eq:gst_explicit}) gives
+\begin{equation}
+g_{\mathrm{ST}}
+\simeq
+\sqrt{g_b a_0}
++
+\frac12 g_b.
+\label{eq:low_accel_limit}
+\end{equation}
+The leading term is therefore
+\begin{equation}
+g_{\mathrm{ST}}
+\simeq
+\sqrt{g_b a_0}.
+\end{equation}
+For an approximately circular orbit, the predicted circular velocity satisfies
+\begin{equation}
+v_{\mathrm{DRND}}^2(r)
+=
+r\,g_{\mathrm{ST}}(r).
+\label{eq:v_drnd}
+\end{equation}
+In the asymptotic low-acceleration limit for a baryonic mass \(M_b\),
+\begin{equation}
+g_b\simeq \frac{GM_b}{r^2},
+\end{equation}
+and therefore
+\begin{equation}
+v_{\mathrm{DRND}}^4
+\simeq
+GM_ba_0.
+\label{eq:btfr_limit}
+\end{equation}
+This relation is not introduced as an independent empirical postulate. It appears as the low-acceleration limit of the spectral-transport law.
+
+The interpretation of equation~(\ref{eq:gst_def}) differs from a purely phenomenological acceleration fit. In DRND II, the transition at \(a_0\) is treated as the macroscopic signature of a change in transport regime. When \(g_b\gg a_0\), local baryonic structure dominates and the graph response is effectively screened. When \(g_b\lesssim a_0\), the environmental transport sector becomes relevant and the observed acceleration receives a topological contribution encoded by \(\nu(x)\).
+
+This structure also fixes the parameter accounting used in the validation sections. The quantities
+\begin{equation}
+\chi=0.18,
+\qquad
+a_0=\chi cH_0,
+\qquad
+\nu(x)=\frac12+\sqrt{\frac14+\frac1x}
+\end{equation}
+are not free parameters in the baseline DRND II model. They define the frozen spectral-transport sector. Nuisance parameters associated with baryonic mass modeling must be counted in the same way as in the control models, but the transport scale itself is locked.
+
+The spectral-transport law is also the bridge to the ATP lensing sector. The acceleration scale \(a_0\) enters the projected lensing amplitude through the same baryonic transport combination
+\begin{equation}
+\sqrt{GM_ba_0}.
+\end{equation}
+This motivates the ATP normalization introduced in the next section,
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}.
+\end{equation}
+Thus the galaxy-dynamical and lensing sectors are not independent fits. They share the same fixed acceleration scale and the same baryonic transport normalization.
+
+The empirical claim made in the following validation sections is correspondingly limited. DRND II does not claim that equation~(\ref{eq:gst_def}) is a final relativistic field equation. It claims that the fixed spectral-transport law, combined with explicit baryons and the ATP projection, defines a compact testable sector. Its success or failure is assessed by comparing the locked model with baryonic, NFW-based, and null controls under the same likelihood and information-criterion conventions.
+
+\section{ATP Lensing Kernel}
+\label{sec:atp_lensing}
+
+The spectral-transport law defined in the previous section describes the effective acceleration inferred from baryonic structure. Lensing requires a projected observable. DRND II therefore introduces the ATP lensing sector as the projected counterpart of the same baryonic topological transport response.
+
+The weak-lensing observable used below is the excess surface density,
+\begin{equation}
+\Delta\Sigma(R)
+=
+\bar{\Sigma}(<R)-\Sigma(R),
+\label{eq:delta_sigma_def}
+\end{equation}
+where \(R\) is the projected radius, \(\Sigma(R)\) is the projected surface density, and \(\bar{\Sigma}(<R)\) is the mean projected surface density interior to \(R\). In standard lensing analyses, \(\Delta\Sigma(R)\) is inferred from the tangential shear through the critical surface density. DRND II uses the same observable but decomposes its modeled contribution differently.
+
+The baseline DRND II decomposition is
+\begin{equation}
+\Delta\Sigma_{\mathrm{total}}(R)
+=
+\Delta\Sigma_{\mathrm{baryon}}(R)
++
+\Delta\Sigma_{\mathrm{ATP}}(R).
+\label{eq:delta_sigma_total}
+\end{equation}
+The first term is the explicit baryonic contribution. It is computed from the observed stellar and gas components, using the same baryonic assumptions as the corresponding control models. The second term is the ATP contribution: a projected topological-transport response associated with the baryonic source and the frozen acceleration scale \(a_0\).
+
+The ATP amplitude is fixed as
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,
+\frac{\sqrt{GM_ba_0}}{G},
+\label{eq:aatp}
+\end{equation}
+where \(M_b\) is the baryonic mass associated with the lensing system and \(a_0=\chi cH_0\) is the frozen DRND II acceleration scale. The numerical factor \(1/4\) is part of the baseline ATP kernel and is not fitted in the validation analysis.
+
+The dimensional structure of equation~(\ref{eq:aatp}) is useful. Since
+\begin{equation}
+\sqrt{GM_ba_0}
+\end{equation}
+has dimensions of velocity squared, division by \(G\) gives
+\begin{equation}
+\left[
+\frac{\sqrt{GM_ba_0}}{G}
+\right]
+=
+\frac{\mathrm{mass}}{\mathrm{length}}.
+\end{equation}
+Thus \(A_{\mathrm{ATP}}\) has the correct dimension for a projected line-mass or surface-density kernel amplitude once multiplied by the corresponding dimensionless radial profile.
+
+We write the ATP contribution as
+\begin{equation}
+\Delta\Sigma_{\mathrm{ATP}}(R)
+=
+A_{\mathrm{ATP}}\,
+\frac{1}{R_0}\,
+\mathcal{K}_{\mathrm{ATP}}(R/R_0),
+\label{eq:delta_sigma_atp_kernel}
+\end{equation}
+where \(R_0\) is the radial normalization scale used in the data vector and \(\mathcal{K}_{\mathrm{ATP}}\) is dimensionless. Equivalently, one may absorb \(1/R_0\) into a dimensionful radial kernel \(K_{\mathrm{ATP}}(R)\). The empirical implementation must state which convention is used. The exact implementation of \(K_{\mathrm{ATP}}\) depends on the data vector and radial convention used in the validation module. In the baseline DRND II interpretation, \(K_{\mathrm{ATP}}\) is not a free halo-density profile. It represents the projected response of the spectral/topological transport sector to the baryonic source.
+
+The distinction from an NFW halo model is therefore structural. An NFW model introduces a dark halo density profile with fitted parameters such as mass and concentration. In contrast, the baseline ATP contribution is tied to the baryonic mass and the fixed acceleration scale:
+\begin{equation}
+\Delta\Sigma_{\mathrm{ATP}}
+\propto
+\frac{\sqrt{GM_ba_0}}{G R_0}.
+\end{equation}
+The model may still contain nuisance parameters associated with baryonic mass modeling or observational covariance, but the ATP normalization itself is locked.
+
+This is also the reason that equation~(\ref{eq:delta_sigma_total}) keeps the baryonic contribution explicit. DRND II does not absorb baryons into an effective dark component. It treats baryons as directly observed sources and adds a topological transport projection. The observational roles usually assigned to dark matter are therefore redistributed among explicit baryons, spectral-transport acceleration, ATP lensing, and void-wall topology.
+
+The ATP sector should not be interpreted as a complete relativistic theory of lensing. It is a phenomenological projection of the frozen DRND II transport law into the weak-lensing observable \(\Delta\Sigma(R)\). A complete relativistic formulation would require field equations for the emergent metric or an equivalent graph-to-lensing map. That task is outside the scope of the present version.
+
+For the purposes of the validation analysis, the important point is parameter accounting. The baseline ATP+baryon model uses
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,
+\frac{\sqrt{GM_ba_0}}{G}
+\end{equation}
+as a fixed amplitude. It is compared with baryon-only, null, and NFW+baryon controls using the same data vector, covariance convention, and information criterion. A preference for the ATP+baryon model is therefore meaningful only if the fixed-amplitude model achieves comparable or better residual structure without introducing additional fitted halo parameters.
+
+The next sections apply this principle first to galaxy/lensing diagnostics and then to cosmic voids. In the void sector, the projected topological response is controlled by a different locked quantity, the graph-predicted gain
+\begin{equation}
+\eta_{\mathrm{wall}}=\frac{19}{2},
+\end{equation}
+but the logic is the same: the amplitude is fixed by the frozen DRND II core before comparison with the data.
+
+\section{Void-Wall Sector and Graph-Predicted Topological Gain}
+\label{sec:void_wall}
+
+The void sector provides an environmental test of DRND II that is independent of the galaxy-scale acceleration law. In the original DRND screening picture, dense virialized regions are locally screened and approximately three-dimensional in their effective transport, while sparse void-like regions are expected to be more sensitive to the underlying graph topology. DRND II sharpens this qualitative distinction into a compensated-wall diagnostic with a fixed graph-predicted amplitude.
+
+A central point is that voids are not modeled as negative galaxies. A galaxy-scale system is dominated by a localized baryonic source and its associated transport response. A cosmic void, by contrast, is an extended underdense region bounded by surrounding walls, filaments, and compensation structures. The relevant object is therefore not a negative point source, but a low-connectivity interior together with a projected boundary response.
+
+For this reason, the baseline void morphology in DRND II is a zero-core compensated wall. Schematically, the modeled void contribution is separated into an interior and a wall term,
+\begin{equation}
+\Delta\Sigma_{\mathrm{void}}(R)
+=
+\Delta\Sigma_{\mathrm{core}}(R)
++
+\Delta\Sigma_{\mathrm{wall}}(R).
+\label{eq:void_decomposition}
+\end{equation}
+The zero-core diagnostic sets the central transport core to zero,
+\begin{equation}
+\Delta\Sigma_{\mathrm{core}}(R)=0
+\end{equation}
+within the idealized void interior, and attributes the observable projected response to the compensated wall. This is not meant to assert that real void interiors contain no matter. Rather, it states that the diagnostic topological response being tested is localized in the compensating wall structure rather than in a negative-galaxy-like core.
+
+Let \(R_v\) denote the void radius and define the dimensionless projected coordinate
+\begin{equation}
+x=\frac{R}{R_v}.
+\end{equation}
+The wall contribution may be written in the diagnostic form
+\begin{equation}
+\Delta\Sigma_{\mathrm{wall}}(R)
+=
+A_{\mathrm{wall}}\,K_{\mathrm{wall}}(x),
+\label{eq:wall_kernel}
+\end{equation}
+where \(K_{\mathrm{wall}}(x)\) is a dimensionless compensated-wall shape function. In the SDSS \(R/R_v\) covariance diagnostic used below, \(A_{\mathrm{wall}}\) is defined in the normalization convention of the diagnostic data vector. If the model is rewritten in physical \(\Delta\Sigma\) units, the corresponding radial scale factor must be included explicitly.
+
+The detailed form of \(K_{\mathrm{wall}}\) depends on the diagnostic convention and covariance treatment used in the validation analysis. The amplitude \(A_{\mathrm{wall}}\), however, is fixed in the DRND II topological model once the diagnostic normalization convention is specified.
+
+The graph-predicted wall gain is inherited from the frozen motif
+\begin{equation}
+F^\star=P_9\oplus P_5^{(1)}\oplus P_5^{(2)},
+\qquad |F^\star|=19.
+\end{equation}
+Since the void-wall response is projected over the two environmental branches, DRND II defines
+\begin{equation}
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}
+=
+\frac{19}{2}.
+\label{eq:eta_wall}
+\end{equation}
+This factor is not fitted to the void data. It is locked by the frozen graph core.
+
+The corresponding DRND void-wall amplitude is
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\eta_{\mathrm{wall}}A_{\Omega_b}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z),
+\label{eq:adrnd_void}
+\end{equation}
+where \(A_{\Omega_b}(z)\) is the baryonic cosmological amplitude appropriate to the diagnostic redshift and normalization convention. In this paper, \(A_{\Omega_b}(z)\) is treated as part of the data and cosmological normalization pipeline, while the factor \(19/2\) is the parameter-free DRND prediction.
+
+Equation~(\ref{eq:adrnd_void}) is the void-sector analogue of the ATP normalization in the galaxy/lensing sector. In both cases, the model does not introduce an arbitrary amplitude after seeing the data. The amplitude is determined by a baryonic or cosmological normalization multiplied by a fixed topological factor:
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G},
+\end{equation}
+for the galaxy/lensing sector, and
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}
+=
+\frac{19}{2}A_{\Omega_b}(z),
+\end{equation}
+for the void-wall sector.
+
+The physical interpretation is that the void wall acts as a macroscopic projection surface for relational transport. The underdense interior is a low-connectivity region, while the wall is the compensating boundary where transport gradients and projected density response become observable. In this sense, the void-wall diagnostic is a direct test of whether large-scale environments encode the same frozen graph cardinality that appears in the DRND II core.
+
+The validation analysis below compares three logically distinct claims:
+\begin{enumerate}
+    \item whether a zero-core compensated-wall morphology is preferred over null, wall-only, or uncompensated alternatives;
+    \item whether the required wall amplitude is consistent with the graph-predicted value \(A_{\mathrm{DRND}}^{19/2}\);
+    \item whether the locked-amplitude model is preferred by information criteria over the same morphology with a fitted amplitude.
+\end{enumerate}
+Only the second and third points test the parameter-free \(19/2\) prediction. The first point tests the morphology of the void response.
+
+It is important to distinguish this diagnostic from a full cosmological void model. DRND II does not claim here a complete dynamical theory of void formation, redshift-space distortions, galaxy bias, or the full matter density profile of voids. The present sector is narrower: it tests whether the projected covariance morphology and amplitude of void walls are consistent with a fixed graph-topological gain. A full physical shear likelihood, independent void catalogues, void-finder systematics, and mock-catalogue comparisons remain necessary for a complete validation.
+
+The central prediction of this section is therefore
+\begin{equation}
+A_{\mathrm{wall}}
+=
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z)
+\end{equation}
+for the locked DRND void-wall model. The empirical sections below report how this prediction performs against the null model, fitted-amplitude diagnostics, and alternative void morphologies.
+
+\section{Empirical Validation I: Galaxy and Lensing Sector}
+\label{sec:validation_galaxy_lensing}
+
+The first empirical validation module tests the frozen DRND II galaxy/lensing sector against a standard NFW+baryon control. The purpose of this comparison is not to claim a general exclusion of NFW halos or particle dark matter. It is to ask whether the fixed-amplitude DRND-ST/ATP sector provides better information-criterion compression for the audited data vector under the same likelihood and parameter-counting convention.
+
+The baseline DRND model in this validation is
+\begin{equation}
+\mathcal{M}_{\mathrm{DRND}}
+=
+\mathrm{ATP+baryon},
+\end{equation}
+with the fixed acceleration scale
+\begin{equation}
+a_0=\chi cH_0,
+\qquad
+\chi=0.18,
+\end{equation}
+the spectral-transport acceleration law
+\begin{equation}
+g_{\mathrm{ST}}
+=
+g_b\,\nu(g_b/a_0),
+\end{equation}
+and the ATP lensing amplitude
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}.
+\end{equation}
+The baryonic contribution is kept explicit:
+\begin{equation}
+\Delta\Sigma_{\mathrm{total}}(R)
+=
+\Delta\Sigma_{\mathrm{baryon}}(R)
++
+\Delta\Sigma_{\mathrm{ATP}}(R).
+\end{equation}
+
+The control model is
+\begin{equation}
+\mathcal{M}_{\mathrm{NFW}}
+=
+\mathrm{NFW+baryon},
+\end{equation}
+where the baryonic sector is treated consistently with the DRND model and the non-baryonic component is represented by an NFW halo profile. The precise NFW parameterization depends on the audited data vector, but the comparison requires that the same radial bins, covariance convention, baryonic assumptions, and likelihood definition be used for both models.
+
+The information criterion used in the audit is the Bayesian Information Criterion,
+\begin{equation}
+\mathrm{BIC}
+=
+k\ln N
+-
+2\ln \hat{\mathcal{L}},
+\label{eq:bic_def}
+\end{equation}
+where \(k\) is the number of fitted parameters, \(N\) is the number of data points in the compared data vector, and \(\hat{\mathcal{L}}\) is the maximum likelihood. For Gaussian residuals with fixed covariance, this is equivalent up to an additive constant to
+\begin{equation}
+\mathrm{BIC}
+=
+k\ln N+\chi^2.
+\end{equation}
+Only BIC differences between models fitted to the same data vector are interpreted.
+
+Throughout this paper we use the convention
+\begin{equation}
+\Delta\mathrm{BIC}_{A-B}
+=
+\mathrm{BIC}_A-\mathrm{BIC}_B.
+\label{eq:delta_bic_convention}
+\end{equation}
+Thus
+\begin{equation}
+\Delta\mathrm{BIC}_{A-B}<0
+\end{equation}
+favours model \(A\) over model \(B\), while
+\begin{equation}
+\Delta\mathrm{BIC}_{A-B}>0
+\end{equation}
+favours model \(B\) over model \(A\).
+
+In the current audit, the fixed DRND ATP+baryon model gives
+\begin{equation}
+\mathrm{BIC}_{\mathrm{ATP+baryon}}=31.70,
+\end{equation}
+whereas the NFW+baryon control gives
+\begin{equation}
+\mathrm{BIC}_{\mathrm{NFW+baryon}}=44.26.
+\end{equation}
+Using the convention in equation~(\ref{eq:delta_bic_convention}), this gives
+\begin{eqnarray}
+\Delta\mathrm{BIC}_{\mathrm{ATP-NFW}}
+&=&
+\mathrm{BIC}_{\mathrm{ATP+baryon}}
+-
+\mathrm{BIC}_{\mathrm{NFW+baryon}}
+\nonumber\\
+&=&
+31.70-44.26
+\nonumber\\
+&=&
+-12.56.
+\label{eq:delta_bic_atp_nfw}
+\end{eqnarray}
+The audited data vector therefore favours the fixed ATP+baryon model over the tested NFW+baryon control.
+
+\begin{table}[htbp]
+\caption{Galaxy/lensing validation summary for the current audit. The DRND ATP+baryon model uses fixed \(a_0=\chi cH_0\) and fixed \(A_{\mathrm{ATP}}=(1/4)\sqrt{GM_ba_0}/G\). The NFW+baryon model is the control profile fitted to the same data vector.}
+\label{tab:galaxy_lensing_bic}
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\hline
+\textbf{Model} & \textbf{Amplitude status} & \textbf{BIC} & \(\Delta\mathrm{BIC}\) \\
+\hline
+DRND ATP+baryon & fixed ATP core & 31.70 & 0 \\
+NFW+baryon & fitted halo control & 44.26 & +12.56 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The strength of this result comes from the fact that the ATP normalization is locked before fitting. The quantities
+\begin{equation}
+\chi=0.18,
+\qquad
+a_0=\chi cH_0,
+\qquad
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}
+\end{equation}
+are part of the frozen DRND II model specification. They are not re-tuned for the galaxy/lensing audit. Any fitted baryonic nuisance parameters must be counted in the same way as in the NFW+baryon comparison.
+
+This parameter accounting is essential. If an NFW halo model uses additional fitted halo parameters, such as a characteristic mass and concentration, those parameters contribute to \(k\) in equation~(\ref{eq:bic_def}). Conversely, if the DRND ATP amplitude is fixed by the theory, it is not counted as a fitted parameter. The BIC comparison therefore tests not only goodness of fit, but predictive compression.
+
+The present result should be interpreted in a restricted sense. Equation~(\ref{eq:delta_bic_atp_nfw}) does not prove that NFW halos are absent in nature, nor does it provide a final microscopic explanation of the dark sector. It establishes that, for the audited galaxy/lensing data vector and the adopted covariance and parameter-counting convention, the fixed DRND ATP+baryon model is preferred by BIC over the tested NFW+baryon control.
+
+The validation also supports the interpretation used throughout DRND II: the dark-matter phenomenology is not postponed, but is addressed at the effective level through explicit baryons, spectral-transport acceleration, and ATP lensing. What remains open is the final microscopic interpretation of any residual dark-sector component, including whether it should be represented by particle dark matter, stable graph excitations, environmental topology, or a fully emergent transport-only mechanism.
+
+Several robustness checks are required for a complete publication-level audit. These include residual plots, radial-window tests, binning variations, baryon-only controls, covariance sensitivity, and nuisance-parameter accounting. The numerical values reported in this section should match the accompanying machine-readable audit tables and reproduction scripts. The current result is reported as a positive diagnostic validation of the frozen DRND-ST/ATP sector, not as a standalone cosmological detection.
+
+\section{Empirical Validation II: Void Morphology}
+\label{sec:validation_void_morphology}
+
+The second validation module tests the morphology of the void-sector response. This test is logically separate from the locked \(19/2\) amplitude discussed in section~\ref{sec:validation_void_amplitude}. Here the question is not whether the amplitude is graph-predicted, but which projected morphology is preferred by the void diagnostic.
+
+In DRND II, voids are not modeled as negative galaxies. A galaxy-scale lens is organized around a localized baryonic source and its associated transport response. A cosmic void is instead an extended low-density region bounded by walls, filaments, and compensation structures. The relevant projected response is therefore expected to arise primarily from the wall structure rather than from a negative central source.
+
+The diagnostic coordinate used in the present void analysis is
+\begin{equation}
+x=\frac{R}{R_v},
+\end{equation}
+where \(R\) is the projected radius and \(R_v\) is the void radius. The tested observable is represented schematically as a projected covariance or excess-surface-density response as a function of \(x\). The precise normalization convention is fixed by the SDSS \(R/R_v\) diagnostic pipeline used in the audit.
+
+The baseline DRND void morphology is the zero-core compensated-wall form,
+\begin{equation}
+\Delta\Sigma_{\mathrm{void}}(R)
+=
+\Delta\Sigma_{\mathrm{wall}}(R),
+\qquad
+\Delta\Sigma_{\mathrm{core}}(R)=0.
+\label{eq:zero_core_void}
+\end{equation}
+Equivalently,
+\begin{equation}
+\Delta\Sigma_{\mathrm{void}}(R)
+=
+A_{\mathrm{wall}}K_{\mathrm{wall}}(R/R_v),
+\label{eq:void_wall_shape}
+\end{equation}
+where \(K_{\mathrm{wall}}\) is a compensated-wall shape function. In this morphology, the diagnostic response is localized in the wall rather than assigned to an interior negative-density analogue of a halo.
+
+The morphology audit compares this structure with three control classes:
+\begin{enumerate}
+    \item a null model, in which no void-correlated projected response is included;
+    \item a wall-only or non-compensated wall template;
+    \item an uncompensated or negative-core template, in which the void is treated more closely as an inverted halo-like object.
+\end{enumerate}
+These controls are not interpreted as complete physical theories. They are diagnostic templates used to determine which projected shape is preferred before imposing the DRND \(19/2\) amplitude lock.
+
+The main morphological result is that the zero-core compensated-wall structure is preferred over the null and the tested non-compensated alternatives in the wide-run and covariance \(x\)-shape diagnostics. This supports the DRND interpretation that the void-sector signal is not a negative-galaxy response but a boundary or wall response of the low-connectivity region.
+
+This conclusion is important because it fixes the geometry tested in the next section. The \(19/2\) amplitude claim is meaningful only after the void morphology has been selected. DRND II therefore separates the void result into two steps:
+\begin{equation}
+\textrm{morphology selection}
+\quad\longrightarrow\quad
+\textrm{locked-amplitude test}.
+\end{equation}
+The present section addresses the first step. Section~\ref{sec:validation_void_amplitude} addresses the second.
+
+In the wide \(x\)-shape covariance diagnostic, the refined zero-core compensated-wall DRND morphology is the preferred model by BIC. It gives
+\begin{equation}
+\mathrm{BIC}_{\mathrm{DRND\ wall}}=26.7753,
+\end{equation}
+compared with
+\begin{equation}
+\mathrm{BIC}_{\mathrm{null}}=112.6509,
+\end{equation}
+\begin{equation}
+\mathrm{BIC}_{\mathrm{wall-only}}=75.1571,
+\end{equation}
+and
+\begin{equation}
+\mathrm{BIC}_{\mathrm{uncompensated}}=77.6183.
+\end{equation}
+Using the convention of equation~(\ref{eq:delta_bic_convention}), this gives
+\begin{equation}
+\Delta\mathrm{BIC}_{\mathrm{DRND-null}}=-85.8756,
+\end{equation}
+\begin{equation}
+\Delta\mathrm{BIC}_{\mathrm{DRND-wall-only}}=-48.3818,
+\end{equation}
+and
+\begin{equation}
+\Delta\mathrm{BIC}_{\mathrm{DRND-uncompensated}}=-50.8430.
+\end{equation}
+
+\begin{table}[htbp]
+\caption{Void morphology audit in the SDSS \(R/R_v\) \(x\)-shape diagnostic. The preferred morphology is the refined zero-core compensated-wall DRND model.}
+\label{tab:void_morphology_bic}
+\begin{center}
+\small
+\begin{tabular}{lcccc}
+\hline
+\textbf{Model} & \(k\) & \(\chi^2\) & \textbf{BIC} & \(\Delta\mathrm{BIC}\) \\
+\hline
+Zero-core compensated wall DRND refined & 5 & 15.7892 & 26.7753 & 0 \\
+Zero-core compensated wall DRND grid & 5 & 20.7068 & 31.6930 & +4.9177 \\
+Projected Gaussian wall-only control & 3 & 68.5654 & 75.1571 & +48.3818 \\
+Zero-core uncompensated deficit & 3 & 71.0266 & 77.6183 & +50.8430 \\
+Null & 0 & 112.6509 & 112.6509 & +85.8756 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The phrase ``zero-core'' should not be read as a claim that real cosmological voids contain no matter. It refers to the diagnostic topological component of the DRND model. Ordinary matter, galaxies, gas, and large-scale structure tracers may still be present in and around the void. The zero-core assumption states only that the additional projected DRND response is assigned to the compensated wall rather than to a central negative source.
+
+The phrase ``compensated wall'' similarly refers to the projected diagnostic morphology. In large-scale structure, voids are often surrounded by overdense or partially compensating shells. DRND II interprets this boundary as the region where relational transport gradients become observationally accessible. In graph language, the void interior is a low-connectivity region, while the wall is the boundary across which the environmental transport response is projected.
+
+This morphological result is not yet a complete physical void model. It does not derive the void abundance, the full density profile, redshift-space distortions, or galaxy bias. It only establishes that, within the audited diagnostic, the preferred projected response has the qualitative form required by the DRND void-wall sector. A complete validation will require independent void catalogues, different void finders, full shear catalog likelihoods, and mock-catalogue comparisons.
+
+The output of this section is therefore the selected baseline morphology:
+\begin{equation}
+\Delta\Sigma_{\mathrm{void}}(R)
+=
+A_{\mathrm{wall}}K_{\mathrm{wall}}(R/R_v),
+\qquad
+\Delta\Sigma_{\mathrm{core}}(R)=0.
+\end{equation}
+The next section tests whether the required amplitude \(A_{\mathrm{wall}}\) is consistent with the graph-predicted value
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\end{equation}
+
+\section{Empirical Validation III: Parameter-Free Void-Wall Amplitude}
+\label{sec:validation_void_amplitude}
+
+The third validation module tests the amplitude of the selected zero-core compensated-wall morphology. Section~\ref{sec:validation_void_morphology} established the morphology to be tested. The present section asks whether its required amplitude is consistent with the graph-predicted DRND value
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\label{eq:adrnd_19_2_validation}
+\end{equation}
+This is a parameter-free amplitude prediction within the frozen DRND II void sector. The factor \(19/2\) is inherited from the graph motif \(F^\star\), while \(A_{\Omega_b}(z)\) is fixed by the baryonic cosmological normalization used in the diagnostic pipeline.
+
+The diagnostic comparison uses three models:
+\begin{enumerate}
+    \item the null model, with no void-wall contribution;
+    \item the same zero-core compensated-wall morphology with a fitted amplitude \(A\);
+    \item the locked DRND topological model with amplitude fixed by equation~(\ref{eq:adrnd_19_2_validation}).
+\end{enumerate}
+The fitted-amplitude model is used only as a diagnostic comparator. It determines whether the selected wall morphology requires an amplitude close to the graph-predicted value. It is not the baseline DRND II model.
+
+For the SDSS \(R/R_v\) covariance diagnostic, the locked DRND amplitude is
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}
+=
+0.2029359.
+\label{eq:adrnd_value}
+\end{equation}
+The amplitude required by the fitted diagnostic model is
+\begin{equation}
+A_{\mathrm{required}}
+=
+0.2039621.
+\label{eq:arequired_value}
+\end{equation}
+Therefore
+\begin{equation}
+\frac{
+A_{\mathrm{DRND}}^{19/2}
+}{
+A_{\mathrm{required}}
+}
+=
+0.99497.
+\label{eq:adrnd_required_ratio}
+\end{equation}
+The relative mismatch is
+\begin{equation}
+\left|
+1-
+\frac{
+A_{\mathrm{DRND}}^{19/2}
+}{
+A_{\mathrm{required}}
+}
+\right|
+=
+0.00503,
+\end{equation}
+or approximately
+\begin{equation}
+0.50\%.
+\end{equation}
+Thus the locked graph amplitude matches the required diagnostic amplitude at the sub-percent level.
+
+The information-criterion comparison gives
+\begin{equation}
+\mathrm{BIC}_{19/2}=37.70,
+\end{equation}
+for the locked DRND topological model,
+\begin{equation}
+\mathrm{BIC}_{A\mathrm{-free}}=39.90,
+\end{equation}
+for the same morphology with one fitted amplitude, and
+\begin{equation}
+\mathrm{BIC}_{\mathrm{null}}=112.65,
+\end{equation}
+for the null model. Relative to the null model,
+\begin{equation}
+\Delta\mathrm{BIC}_{19/2-\mathrm{null}}
+=
+37.70-112.65
+=
+-74.95.
+\end{equation}
+Relative to the fitted-amplitude diagnostic model,
+\begin{equation}
+\Delta\mathrm{BIC}_{19/2-A\mathrm{-free}}
+=
+37.70-39.90
+=
+-2.20.
+\end{equation}
+
+The preference over the fitted-amplitude model does not arise from a lower best-fit residual. The two chi-square values are nearly identical:
+\begin{equation}
+\chi^2_{19/2}=37.7027,
+\end{equation}
+and
+\begin{equation}
+\chi^2_{A\mathrm{-free}}=37.7008.
+\end{equation}
+The fitted-amplitude model has a slightly lower \(\chi^2\), as expected, because it contains one additional adjustable parameter. However, the improvement is too small to compensate for the BIC penalty. The locked DRND model is therefore preferred because it achieves essentially the same fit quality with no fitted amplitude parameter.
+
+\begin{table}[htbp]
+\caption{Void-wall amplitude validation in the SDSS \(R/R_v\) covariance diagnostic. The locked DRND model uses \(A_{\mathrm{DRND}}^{19/2}=(19/2)A_{\Omega_b}(z)\) with no fitted amplitude parameter.}
+\label{tab:void_amplitude_validation}
+\begin{center}
+\small
+\begin{tabular}{lcccc}
+\hline
+\textbf{Model} & \textbf{Amplitude} & \(k_A\) & \(\chi^2\) & \textbf{BIC} \\
+\hline
+Locked DRND \(19/2\) & fixed & 0 & 37.7027 & 37.70 \\
+Fitted-amplitude wall & free & 1 & 37.7008 & 39.90 \\
+Null & none & 0 & --- & 112.65 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The result has two distinct meanings. First, the void-wall morphology is strongly preferred over the null model in the present diagnostic. Second, the amplitude required by that morphology is already supplied by the frozen DRND graph gain \(19/2\), without introducing a free normalization. The combination of these two facts makes the void-wall sector a parameter-free positive diagnostic of the DRND II core.
+
+This is the first macroscopic validation in which the total graph cardinality
+\begin{equation}
+|F^\star|=19
+\end{equation}
+enters directly into an observational amplitude through
+\begin{equation}
+\eta_{\mathrm{wall}}=\frac{|F^\star|}{2}.
+\end{equation}
+The agreement
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}/A_{\mathrm{required}}=0.99497
+\end{equation}
+therefore links the frozen graph motif to the void-sector diagnostic without retuning the amplitude after seeing the data.
+
+The interpretation should nevertheless remain restricted. The diagnostic is based on the SDSS \(R/R_v\) covariance convention and is not yet a full independent shear-catalog likelihood in physical units. It must be replicated with independent void catalogues, alternative void finders, full covariance treatments, mock catalogues, and physically normalized shear profiles. The result is therefore reported as parameter-free positive diagnostic evidence for the DRND void-wall amplitude, not as a final cosmological detection.
+
+The final output of the void-sector validation is
+\begin{equation}
+A_{\mathrm{wall}}
+=
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z)
+\end{equation}
+within the tested zero-core compensated-wall diagnostic. Together with the galaxy/lensing result of section~\ref{sec:validation_galaxy_lensing}, this supports the frozen DRND-ST/ATP sector as a compact model in which dark-matter phenomenology is redistributed among explicit baryons, spectral transport, ATP lensing, and environmental void-wall topology.
+
+\section{Relation to Existing Work}
+\label{sec:existing_work}
+
+DRND II combines several ideas that have precedents in the literature: emergent spacetime from discrete relational structure, spectral dimension as an operational probe of geometry, baryonic acceleration scaling, weak-lensing tests of nonstandard gravitational sectors, and Koide-type charged-lepton mass relations. The novelty claimed here is not that each individual ingredient is new. The claim is that DRND II freezes these ingredients into a single spectral/topological transport sector in which the same graph motif organizes galaxy dynamics, ATP lensing, void-wall amplitudes, and a conjectural microscopic phase-resonance appendix.
+
+\subsection{Relational and graph-based emergence}
+
+The idea that spacetime may be emergent from a discrete causal or relational structure has a long history. Causal set theory treats the fundamental substrate as a locally finite partially ordered set, with causal order and discreteness replacing a smooth manifold at the microscopic level \cite{Sorkin2003}. Quantum graphity models and related background-independent graph approaches similarly investigate the possibility that locality, geometry, and matter-like structures emerge from graph states rather than being imposed on a pre-existing space \cite{Konopka2008}. More recent graph-rewriting and computational approaches also explore the emergence of spacetime-like behaviour from discrete update rules \cite{Wolfram2020}.
+
+DRND is adjacent to these programmes but differs in emphasis. It does not begin by specifying a complete graph Hamiltonian or graph-rewriting rule. Instead, it defines operational transport observables on a relational event graph and then freezes a specific finite transport motif,
+\begin{equation}
+F^\star=P_9\oplus P_5^{(1)}\oplus P_5^{(2)},
+\qquad |F^\star|=19,
+\end{equation}
+whose projections are compared with macroscopic diagnostics. The present paper therefore sits between foundational graph-emergence models and phenomenological tests of cosmic structure.
+
+\subsection{Spectral dimension and diffusion diagnostics}
+
+The use of spectral dimension as a probe of effective geometry is also not unique to DRND. It appears in causal dynamical triangulations and other approaches to quantum gravity, where diffusion processes are used to define an effective scale-dependent dimension \cite{Ambjorn2005}. DRND adopts the same operational logic:
+\begin{equation}
+d_S(\tau)
+=
+-2\,\frac{d\ln P_r(\tau)}{d\ln \tau}.
+\end{equation}
+The difference is that DRND II uses spectral dimension as part of a transport interpretation linking graph connectivity to galaxy, lensing, and void observables.
+
+In this sense, \(d_S\) is not used merely as a diagnostic of microscopic geometry. It is part of the bridge between relational graph structure and observed macroscopic response. Dense screened regions, sparse void-like regions, and compensated walls are interpreted as different transport regimes of the same underlying relational substrate.
+
+\subsection{Acceleration scales and MOND-like phenomenology}
+
+The appearance of an acceleration scale of order \(cH_0\) has well-known precedents in MOND and related modified-gravity phenomenology \cite{Milgrom1983,Milgrom2002}. The empirical baryonic acceleration relation and the low-acceleration scaling
+\begin{equation}
+g\sim\sqrt{g_ba_0}
+\end{equation}
+are also central features of MOND-like descriptions of galaxy dynamics \cite{McGaugh2016}. DRND II does not claim priority over this phenomenological structure.
+
+The difference lies in the interpretation and in the additional fixed sectors. In DRND II the acceleration scale is written as
+\begin{equation}
+a_0=\chi cH_0,
+\qquad \chi=0.18,
+\end{equation}
+and is interpreted as a topological transport scale rather than as an isolated phenomenological constant. The spectral-transport law
+\begin{equation}
+g_{\mathrm{ST}}
+=
+g_b\,\nu(g_b/a_0),
+\qquad
+\nu(x)=\frac12+\sqrt{\frac14+\frac1x},
+\end{equation}
+has a MOND-like low-acceleration limit, but it is embedded in a larger graph-transport structure that also includes the ATP lensing kernel and the void-wall gain.
+
+This distinction is important. A MOND-like acceleration law alone would not constitute a new theory. The DRND II claim is that the same frozen graph structure also organizes projected lensing and void-wall diagnostics with locked amplitudes.
+
+\subsection{Weak lensing, NFW controls, and emergent-gravity tests}
+
+The NFW profile is the standard control model for collisionless cold-dark-matter halos in many galaxy and lensing analyses \cite{Navarro1996,Navarro1997}. Any nonstandard model of galaxy dynamics must therefore be tested not only against rotation curves but also against lensing observables, covariance conventions, and parameter-counting penalties. DRND II uses NFW+baryon models as controls rather than as straw-man alternatives.
+
+There are also precedents for testing emergent or modified-gravity ideas with weak lensing. For example, emergent-gravity-inspired predictions have been compared with galaxy--galaxy lensing measurements \cite{Brouwer2017}. DRND II is similar in that it treats lensing as an essential test of any non-particle interpretation of dark-matter phenomenology. It differs by using a fixed ATP amplitude,
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G},
+\end{equation}
+rather than a freely fitted halo normalization.
+
+The galaxy/lensing validation reported above should therefore be read as an information-criterion comparison between a locked ATP+baryon sector and the tested NFW+baryon control. It is not claimed as a general exclusion of NFW halos or particle dark matter.
+
+\subsection{Cosmic voids as tests of environment-dependent physics}
+
+Cosmic voids are useful laboratories for testing environmental dependence because they are underdense, weakly screened, and sensitive to large-scale structure formation. Void lensing has been measured through stacked shear and excess-surface-density profiles, and void statistics have been proposed as tests of gravity, dark energy, and structure formation \cite{Clampitt2015,Hamaus2014,Cai2015}. Modified-gravity studies also often treat voids as promising environments because screening mechanisms can be weaker there than in dense halos \cite{Zivick2015,Cai2015}.
+
+DRND II adopts this general motivation but introduces a specific morphology and amplitude claim. Voids are not treated as negative galaxies. The preferred diagnostic structure is a zero-core compensated wall, and the wall amplitude is locked by the graph gain
+\begin{equation}
+\eta_{\mathrm{wall}}=\frac{19}{2}.
+\end{equation}
+This gives
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z),
+\end{equation}
+which is compared directly with the amplitude required by the SDSS \(R/R_v\) covariance diagnostic.
+
+This is one of the central novelty claims of DRND II: the void-wall amplitude is not treated as a free environmental nuisance term, but as a projection of the same frozen graph cardinality used elsewhere in the theory.
+
+\subsection{Koide-type relations and microscopic phase resonance}
+
+The microscopic appendix is related to the long-standing Koide relation for charged leptons \cite{Koide1981,Koide1982}. The empirical Koide relation can be written as
+\begin{equation}
+\frac{
+m_e+m_\mu+m_\tau
+}{
+\left(\sqrt{m_e}+\sqrt{m_\mu}+\sqrt{m_\tau}\right)^2
+}
+=
+\frac23.
+\end{equation}
+Foot gave a geometric interpretation of this relation in terms of the angle between the vector of square-root charged-lepton masses and the democratic direction \((1,1,1)\) \cite{Foot1994}. Other works have explored algebraic, phase, or matrix formulations of Koide-type mass relations, including circulant or phase-eigenvalue parameterizations \cite{Brannen2006,BrannenAPS2006}. Sumino-type models have also attempted to stabilize Koide-like structures through family gauge symmetries \cite{Sumino2009}.
+
+DRND II does not claim priority over the Koide relation or its known reformulations. The microscopic appendix instead proposes a graph-phase interpretation of the charged-lepton resonance:
+\begin{equation}
+m_i^\ell
+=
+M_\ell
+\left[
+1+\sqrt{2}\cos\left(
+\frac{2}{9}+\frac{2\pi i}{3}
+\right)
+\right]^2.
+\end{equation}
+The charged-lepton phase
+\begin{equation}
+\theta_\ell=\frac{2}{9}
+\end{equation}
+is interpreted as a projection of the frozen \(F^\star\) motif, rather than as an isolated numerical feature of the lepton spectrum.
+
+The appendix should therefore be read as a conjectural microscopic extension. It is included because the charged-lepton sector exhibits a compact phase-resonance structure and because the same graph motif also appears in the macroscopic void-wall gain. It is not presented as a completed derivation of the Standard Model, QCD, or the Higgs mechanism.
+
+\subsection{Novelty of the DRND II synthesis}
+
+The distinct contribution of DRND II is the locked synthesis:
+\begin{eqnarray}
+G_n=(V_n,E_n)
+&\longrightarrow&
+F^\star=P_9\oplus P_5\oplus P_5
+\nonumber\\
+&\longrightarrow&
+\{a_0,A_{\mathrm{ATP}},\eta_{\mathrm{wall}},\theta_\ell\}.
+\end{eqnarray}
+The same finite graph motif organizes:
+\begin{enumerate}
+    \item the galactic spectral-transport scale \(a_0=\chi cH_0\);
+    \item the fixed ATP lensing amplitude \(A_{\mathrm{ATP}}\);
+    \item the void-wall gain \(\eta_{\mathrm{wall}}=19/2\);
+    \item the microscopic charged-lepton phase \(\theta_\ell=2/9\) in the appendix.
+\end{enumerate}
+
+This synthesis is the main novelty claim. DRND II does not assert that graph-based emergence, spectral dimension, MOND-like acceleration scaling, void lensing, or Koide-type lepton relations are individually new. It asserts that these structures can be embedded into a single frozen spectral/topological transport sector and tested through fixed-amplitude diagnostics.
+
+The claim remains limited. The validation results reported here are positive diagnostics of the frozen DRND-ST/ATP sector. They do not constitute a final replacement for \(\Lambda\)CDM, a full relativistic field theory, or a complete microscopic derivation of particle physics. Those remain open problems for subsequent work.
+
+\section{Limitations and Non-Claims}
+\label{sec:limitations}
+
+The purpose of DRND II is to define and test a frozen spectral/topological transport sector. The validation results reported above are positive diagnostics for this sector, but they do not complete the full DRND programme. This section states explicitly what is not claimed in the present work.
+
+First, DRND II does not claim to disprove \(\Lambda\)CDM. The standard cosmological model remains the benchmark effective description of large-scale structure and expansion. The present paper tests a narrower claim: that the frozen DRND-ST/ATP sector provides parameter-efficient positive diagnostics in galaxy/lensing and void-wall observables. A full cosmological comparison would require joint constraints from CMB, BAO, SNe, BBN, growth of structure, redshift-space distortions, cluster counts, and local precision tests. That global comparison is not performed here.
+
+Second, DRND II does not claim a general exclusion of NFW halos or particle dark matter. The NFW+baryon model is used as a control in the audited galaxy/lensing comparison. The result
+\begin{equation}
+\Delta\mathrm{BIC}_{\mathrm{ATP-NFW}}=-12.56
+\end{equation}
+is interpreted only within the audited data vector, covariance convention, baryonic treatment, and parameter-counting scheme. It means that the fixed ATP+baryon sector gives better information-criterion compression than the tested NFW+baryon control in that audit. It does not imply that all NFW-based descriptions fail, nor that particle dark matter is absent in nature.
+
+Third, the dark-matter phenomenology is addressed in DRND II at the effective level, but its final microscopic interpretation remains open. In the present formulation, the observational roles usually assigned to dark matter are redistributed among explicit baryons, spectral-transport acceleration, ATP lensing, and void-wall topology. This is a reclassification of the phenomenology, not a completed microscopic theory of the dark sector. Possible microscopic interpretations include particle dark matter, stable graph excitations, environmental topology, or a fully emergent transport-only mechanism. Distinguishing among these possibilities requires further work.
+
+Fourth, the ATP lensing kernel is not a complete relativistic theory of lensing. It is a phenomenological projection of the frozen spectral-transport law into the weak-lensing observable \(\Delta\Sigma(R)\). A full theory would require either emergent metric field equations or an equivalent graph-to-lensing map capable of predicting light deflection, time delay, gravitational slip, and post-Newtonian limits. DRND II does not yet provide that complete relativistic closure.
+
+Fifth, the void-wall result is diagnostic, not final. The locked amplitude
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}
+=
+\frac{19}{2}A_{\Omega_b}(z)
+\end{equation}
+matches the required SDSS \(R/R_v\) covariance-diagnostic amplitude at the sub-percent level,
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}/A_{\mathrm{required}}=0.99497.
+\end{equation}
+This is a strong parameter-free diagnostic result within the stated pipeline. However, it is not yet a full independent shear-catalog likelihood in physical units. Replication is required using independent void catalogues, alternative void finders, full covariance matrices, mock catalogues, physically normalized shear profiles, and systematic tests for selection, centering, survey geometry, and redshift-space effects.
+
+Sixth, the frozen graph motif
+\begin{equation}
+F^\star=P_9\oplus P_5^{(1)}\oplus P_5^{(2)}
+\end{equation}
+is treated as a fixed relational transport basis, not as a completed graph microdynamics. DRND II does not derive the unique update rule
+\begin{equation}
+G_n\rightarrow G_{n+1},
+\end{equation}
+nor does it yet derive the allowed reconnection moves, stability conditions of graph excitations, continuum limit, or quantum measure over graph histories. The motif is used because its projections define fixed amplitudes that can be tested. Its deeper derivation remains an open task.
+
+Seventh, the microscopic mass-spectrum appendix is conjectural. The charged-lepton phase-resonance rule is compact and numerically strong, but the appendix is not a derivation of the Standard Model. It does not replace QCD, does not derive the Higgs mechanism, does not provide a complete theory of CKM or PMNS mixing, and does not compute radiative corrections. The electroweak barrier notation \(H_B\) should not be read as a full derivation of the Higgs boson or electroweak symmetry breaking. It is a phase-time barrier interpretation within the DRND extension.
+
+Eighth, the possible evolution of effective constants is not part of the frozen validation core. Earlier DRND formulations discussed parameter families such as
+\begin{equation}
+\hbar(t)\propto c_{\mathrm{eff}}(t)^p,
+\qquad
+G(t)\propto c_{\mathrm{eff}}(t)^q.
+\end{equation}
+In DRND II these possibilities are retained as future-work directions. The same applies to any dynamical acceleration scale of the form
+\begin{equation}
+a_0^{\mathrm{dyn}}(z)
+=
+\chi(z)c_{\mathrm{eff}}(z)H(z).
+\end{equation}
+Such a model is not used in the galaxy/lensing BIC result, the void morphology result, or the \(19/2\) void-wall amplitude result. The frozen validation core uses
+\begin{equation}
+a_0^{\mathrm{DRND\,II}}
+=
+\chi cH_0
+=
+\mathrm{const}.
+\end{equation}
+Any future version that promotes varying \(\hbar\), \(G\), \(c_{\mathrm{eff}}(z)\), or \(a_0(z)\) to core status must confront BBN, CMB, atomic spectra, local clocks, lunar laser ranging, pulsar timing, high-redshift galaxy dynamics, and laboratory constraints.
+
+Ninth, no claim is made that the current validation suite is immune to look-elsewhere or model-selection bias. The frozen model must be tested prospectively on independent data. In particular, the void-wall \(19/2\) result should be treated as a locked-amplitude success only if the same graph-predicted gain is carried forward unchanged into new catalogues and new likelihood implementations. Retuning the graph motif, the amplitude, or the wall morphology after new data would weaken the claim.
+
+Tenth, DRND II does not claim that every observed anomaly must be explained by the same mechanism. The framework is designed to test whether one frozen spectral/topological transport sector accounts for a restricted set of galaxy, lensing, and void diagnostics. Failure in one domain should be reported as such. If NFW+baryon or another control model outperforms DRND under the same data vector and parameter accounting, the result should be recorded as a failure of that DRND sector, not absorbed by adding post-hoc correction terms.
+
+The non-claims can be summarized as follows:
+\begin{equation}
+\mathrm{DRND\ II}
+\neq
+\mathrm{final\ replacement\ for\ }\Lambda\mathrm{CDM},
+\end{equation}
+\begin{equation}
+\mathrm{DRND\ II}
+\neq
+\mathrm{complete\ exclusion\ of\ particle\ dark\ matter},
+\end{equation}
+\begin{equation}
+\mathrm{DRND\ II}
+\neq
+\mathrm{complete\ Standard\ Model\ derivation},
+\end{equation}
+and
+\begin{equation}
+\mathrm{DRND\ II}
+\neq
+\mathrm{complete\ graph\ microdynamics}.
+\end{equation}
+
+The positive claim is narrower:
+\begin{equation}
+\mathrm{DRND\ II}
+=
+\mathrm{a\ frozen\ spectral/topological\ transport\ sector}
+\end{equation}
+with explicit baryons, fixed \(a_0=\chi cH_0\), fixed ATP normalization, and graph-predicted void-wall gain \(19/2\), tested against specified controls. This is the level at which the present work should be evaluated.
+
+\section{Predictions and Falsification}
+\label{sec:falsification}
+
+A frozen transport sector is scientifically useful only if it makes predictions that can fail. DRND II is therefore formulated with explicit falsification criteria. The following tests are not optional extensions of the framework; they define the empirical programme required to determine whether the ST/ATP and void-wall sectors survive beyond the present diagnostic results.
+
+\subsection{Fixed acceleration-scale prediction}
+
+The first prediction is that the acceleration scale is fixed by
+\begin{equation}
+a_0=\chi cH_0,
+\qquad
+\chi=0.18,
+\end{equation}
+and should not be re-estimated independently for each galaxy, lensing sample, or void catalogue. For the adopted value of \(H_0\), this gives
+\begin{equation}
+a_0
+=
+1.1787\times10^{-10}~\mathrm{m\,s^{-2}}.
+\end{equation}
+In the low-acceleration regime, the spectral-transport law predicts
+\begin{equation}
+g_{\mathrm{ST}}\simeq \sqrt{g_ba_0}.
+\end{equation}
+For approximately circular orbits, this implies
+\begin{equation}
+v^4\simeq GM_ba_0.
+\end{equation}
+
+A direct falsification condition is therefore:
+\begin{equation}
+a_0^{(i)}
+\not\simeq
+\chi cH_0
+\end{equation}
+across statistically independent galaxy samples after controlled baryonic uncertainties. If successful fits require object-by-object retuning of \(a_0\), or if the inferred acceleration scale is systematically inconsistent with \(\chi cH_0\), the frozen DRND II galaxy sector fails.
+This criterion also applies to high-redshift systems. For a galaxy at redshift \(z\), the frozen DRND II prediction remains
+\begin{equation}
+g_{\mathrm{ST}}(z)
+=
+g_b(z)\,
+\nu\!\left(\frac{g_b(z)}{a_0^{\mathrm{DRND\,II}}}\right),
+\qquad
+a_0^{\mathrm{DRND\,II}}=\chi cH_0.
+\end{equation}
+A fit that requires replacing \(H_0\) by \(H(z)\), or otherwise introducing a redshift-dependent \(a_0(z)\), should be counted as evidence against the frozen DRND II sector unless such a dependence is specified as a separate prospective extension before the test.
+
+\subsection{ATP lensing prediction}
+
+The ATP lensing sector predicts that the projected topological contribution is normalized by
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G},
+\end{equation}
+with the baryonic contribution kept explicit:
+\begin{equation}
+\Delta\Sigma_{\mathrm{total}}(R)
+=
+\Delta\Sigma_{\mathrm{baryon}}(R)
++
+\Delta\Sigma_{\mathrm{ATP}}(R).
+\end{equation}
+The ATP amplitude is not a fitted halo normalization.
+
+The falsification condition is:
+\begin{equation}
+\Delta\Sigma_{\mathrm{obs}}(R)
+-
+\Delta\Sigma_{\mathrm{baryon}}(R)
+\not\sim
+A_{\mathrm{ATP}}\,
+\frac{1}{R_0}\,
+K_{\mathrm{ATP}}(R/R_0)
+\end{equation}
+under the same radial range, covariance convention, and baryonic assumptions used for the controls. If the ATP contribution must be rescaled by a free normalization in order to compete with NFW+baryon models, the fixed ATP lensing sector fails.
+
+A stronger failure occurs if
+\begin{equation}
+\mathrm{BIC}_{\mathrm{ATP+baryon}}
+-
+\mathrm{BIC}_{\mathrm{NFW+baryon}}
+>
+0
+\end{equation}
+in independent galaxy/lensing samples when both models are evaluated with the same parameter-counting convention. In that case, the result should be reported as a failure of the tested ATP sector, not as evidence for an additional unmodeled DRND correction.
+
+\subsection{Rotation--lensing consistency}
+
+DRND II predicts that the same fixed acceleration scale \(a_0\) should organize both the dynamical and projected lensing sectors. Therefore, the scale inferred from rotation or dynamical acceleration diagnostics should be consistent with the scale entering the ATP lensing amplitude:
+\begin{equation}
+a_0^{\mathrm{rotation}}
+\simeq
+a_0^{\mathrm{lensing}}
+\simeq
+\chi cH_0.
+\end{equation}
+If rotation data require one scale and lensing data require another unrelated scale, the frozen ST/ATP sector is internally inconsistent.
+
+This test is stronger than a rotation-curve-only test. A model can reproduce baryonic acceleration scaling while failing lensing. DRND II therefore requires rotation--lensing consistency as a core prediction.
+
+\subsection{Void morphology prediction}
+
+The void sector predicts that the preferred diagnostic morphology is a zero-core compensated wall:
+\begin{equation}
+\Delta\Sigma_{\mathrm{core}}(R)=0,
+\qquad
+\Delta\Sigma_{\mathrm{void}}(R)
+=
+A_{\mathrm{wall}}K_{\mathrm{wall}}(R/R_v).
+\end{equation}
+Voids should not be best described as negative galaxies or uncompensated inverted halos in the diagnostic space used for the audit.
+
+The morphology sector fails if independent void catalogues and shear measurements prefer negative-core, uncompensated, or null templates over the zero-core compensated-wall morphology under the same information-criterion accounting. In particular, if
+\begin{equation}
+\mathrm{BIC}_{\mathrm{zero-core\ wall}}
+-
+\mathrm{BIC}_{\mathrm{alternative}}
+>
+0
+\end{equation}
+systematically across independent catalogues, then the DRND void morphology is not supported.
+
+\subsection{Void-wall amplitude prediction}
+
+The strongest void-sector prediction is the locked graph amplitude
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\end{equation}
+This is a parameter-free prediction once the diagnostic normalization \(A_{\Omega_b}(z)\) is specified.
+
+The amplitude test can be written as
+\begin{equation}
+\mathcal{R}_{\mathrm{void}}
+=
+\frac{
+A_{\mathrm{DRND}}^{19/2}
+}{
+A_{\mathrm{required}}
+}.
+\end{equation}
+The present diagnostic gives
+\begin{equation}
+\mathcal{R}_{\mathrm{void}}=0.99497.
+\end{equation}
+Future catalogues should preserve consistency with
+\begin{equation}
+\mathcal{R}_{\mathrm{void}}\simeq 1
+\end{equation}
+within the stated covariance and systematic uncertainties.
+
+The void-wall amplitude sector fails if independent catalogues require
+\begin{equation}
+\mathcal{R}_{\mathrm{void}}
+\neq
+1
+\end{equation}
+at statistically significant levels, or if the fitted-amplitude wall model is consistently preferred over the locked \(19/2\) model after the BIC penalty is included. It also fails if the required amplitude changes with void finder, redshift, survey geometry, or radial convention in a way that cannot be absorbed by the specified \(A_{\Omega_b}(z)\) normalization.
+
+\subsection{Environmental residual prediction}
+
+DRND II predicts that residuals should carry environmental information. In particular, after subtracting explicit baryons and the fixed ATP contribution, residuals should correlate with line-of-sight structure, void fraction, or wall environment if the topological transport interpretation is correct. A schematic test is
+\begin{equation}
+r_i
+=
+\frac{
+D_i-M_i
+}{
+\sigma_i
+},
+\end{equation}
+where \(D_i\) is the observed data vector, \(M_i\) is the DRND model prediction, and \(\sigma_i\) is the corresponding uncertainty. One may then test whether
+\begin{equation}
+r_i
+\sim
+\alpha\,f_{\mathrm{void}}(\hat{\mathbf{n}}_i,z_i)
+\end{equation}
+or more generally whether the residuals correlate with environmental connectivity proxies.
+
+A null result is not automatically fatal, because residual correlations depend on the observable and survey geometry. However, if the DRND model requires environmental interpretation while residuals show no environmental structure across multiple independent probes, the topological transport interpretation is weakened.
+
+\subsection{Prospective validation requirements}
+
+The current validation results must be tested prospectively. The following analyses are required before DRND II can be treated as more than a positive diagnostic framework:
+\begin{enumerate}
+    \item repeat the ATP+baryon versus NFW+baryon comparison on independent lensing and galaxy samples;
+    \item publish the full likelihood, covariance, radial bins, parameter counts, and baryonic assumptions used in the audit;
+    \item test radial-window and binning robustness;
+    \item compare against baryon-only and null controls;
+    \item replicate the zero-core compensated-wall morphology with independent void catalogues;
+    \item test the locked \(19/2\) amplitude using independent shear catalogues and physically normalized \(\Delta\Sigma\) profiles;
+    \item evaluate void-finder dependence and mock-catalogue systematics;
+    \item test HOD, satellite, miscentering, and survey-mask systematics;
+    \item carry the fixed values \(a_0\), \(A_{\mathrm{ATP}}\), and \(\eta_{\mathrm{wall}}\) forward without retuning.
+\end{enumerate}
+
+The last point is essential. A frozen model must remain frozen. If future data require changing
+\begin{equation}
+\chi,\qquad
+\frac14,\qquad
+\frac{19}{2},
+\end{equation}
+then the present DRND II sector should be considered falsified or incomplete rather than silently modified.
+
+\subsection{Future-work predictions outside the frozen core}
+
+Several predictions remain outside the frozen validation core. These include:
+\begin{enumerate}
+    \item line-of-sight propagation effects in strong-lensing time delays;
+    \item FRB/GRB timing residuals correlated with large-scale structure;
+    \item possible phase-time effects in cosmological distance indicators;
+    \item microscopic graph-excitation interpretations of residual dark-sector components;
+    \item radiative and mixing corrections in the microscopic mass-spectrum appendix.
+\end{enumerate}
+These directions are natural continuations of the DRND programme, but they are not used to support the present BIC or void-wall amplitude claims.
+
+The falsifiability criterion for DRND II can therefore be summarized as follows:
+\begin{equation}
+\textrm{fixed core} \quad \longrightarrow \quad
+\textrm{fixed amplitudes} \quad \longrightarrow \quad
+\textrm{independent prospective tests}.
+\end{equation}
+If the fixed amplitudes fail in independent data, the frozen DRND-ST/ATP sector fails. If they survive, the case for the relational transport interpretation becomes stronger.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+DRND II reformulates Discrete Relational Network Dynamics as a frozen spectral/topological transport sector built on an evolving relational graph. The fundamental substrate is the update-indexed graph
+\begin{equation}
+G_n=(V_n,E_n),
+\end{equation}
+with physical time interpreted as a coarse-grained ordering of graph updates rather than as a primitive background variable. Diffusion on this graph defines the spectral dimension \(d_S(\tau)\), while first-passage transport and graph-geodesic distances define an operational propagation layer.
+
+The new element of DRND II is the frozen topological motif
+\begin{equation}
+F^\star=P_9\oplus P_5^{(1)}\oplus P_5^{(2)},
+\qquad |F^\star|=19.
+\end{equation}
+This motif is held fixed across the validation sectors. It is not retuned between galaxies, lensing systems, and voids. Its projections define the graph-cardinality structures used in the macroscopic diagnostics and in the microscopic appendix.
+
+At galactic scales, the frozen sector introduces the acceleration scale
+\begin{equation}
+a_0=\chi cH_0,
+\qquad
+\chi=0.18,
+\end{equation}
+and the spectral-transport law
+\begin{equation}
+g_{\mathrm{ST}}
+=
+g_b\,\nu(g_b/a_0),
+\qquad
+\nu(x)
+=
+\frac12+\sqrt{\frac14+\frac1x}.
+\end{equation}
+In the high-acceleration limit this reduces to the baryonic Newtonian regime, while in the low-acceleration limit it gives
+\begin{equation}
+g_{\mathrm{ST}}\simeq \sqrt{g_ba_0},
+\end{equation}
+and therefore
+\begin{equation}
+v^4\simeq GM_ba_0
+\end{equation}
+for approximately circular orbits.
+
+The corresponding ATP lensing sector keeps baryons explicit and adds a fixed topological projection,
+\begin{equation}
+\Delta\Sigma_{\mathrm{total}}(R)
+=
+\Delta\Sigma_{\mathrm{baryon}}(R)
++
+\Delta\Sigma_{\mathrm{ATP}}(R),
+\end{equation}
+with
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}.
+\end{equation}
+In the current galaxy/lensing audit, the fixed ATP+baryon model is preferred over the tested NFW+baryon control by
+\begin{equation}
+\Delta\mathrm{BIC}_{\mathrm{ATP-NFW}}=-12.56.
+\end{equation}
+This result is interpreted as positive diagnostic evidence for the tested ATP sector, not as a general exclusion of NFW halos or particle dark matter.
+
+The void sector provides a second and independent test. DRND II treats voids not as negative galaxies, but as low-connectivity interiors bounded by compensated wall structures. The selected diagnostic morphology is a zero-core compensated wall. The graph motif predicts the wall gain
+\begin{equation}
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}
+=
+\frac{19}{2},
+\end{equation}
+and therefore the locked void-wall amplitude
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\end{equation}
+In the SDSS \(R/R_v\) covariance diagnostic, this gives
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}/A_{\mathrm{required}}
+=
+0.99497,
+\end{equation}
+corresponding to a sub-percent amplitude mismatch of approximately \(0.50\%\). The locked \(19/2\) model is also preferred by BIC over both the null model and the same wall morphology with a fitted amplitude. This is the strongest parameter-free diagnostic result reported in the present version.
+
+Together, the galaxy/lensing and void-wall results support the central claim of DRND II: a single frozen relational motif can organize multiple dark-sector observables through fixed spectral/topological projections. In this formulation, dark-matter phenomenology is not ignored or postponed. It is redistributed among explicit baryons, spectral-transport acceleration, ATP lensing, and environmental void-wall topology. The final microscopic interpretation of any residual dark component remains open.
+
+Several limitations remain essential. DRND II is not a completed replacement for \(\Lambda\)CDM, not a full relativistic theory of lensing, not a proof against particle dark matter, and not a complete microscopic derivation of the Standard Model. The graph update rule \(G_n\to G_{n+1}\), the continuum limit, post-Newtonian consistency, CMB/BBN constraints, radiative corrections, and full shear-catalog likelihoods remain future work. The microscopic mass-spectrum appendix is included as a conjectural phase-resonance extension of the same \(F^\star\) motif, not as a finished particle theory.
+
+The next stage of the programme is therefore empirical and prospective. The fixed values
+\begin{equation}
+\chi=0.18,
+\qquad
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G},
+\qquad
+\eta_{\mathrm{wall}}=\frac{19}{2}
+\end{equation}
+must be carried forward unchanged into independent tests. Required checks include independent galaxy/lensing samples, full covariance treatments, baryon-only and NFW+baryon controls, radial-window robustness, independent void catalogues, alternative void finders, mock-catalogue comparisons, and physically normalized shear profiles.
+
+The conclusion of this work is therefore deliberately limited but concrete. DRND II defines a frozen spectral/topological transport sector with fixed amplitudes and explicit falsification criteria. In the present audits, this sector gives positive diagnostic evidence in both galaxy/lensing and void-wall tests. Whether this evidence indicates a deeper relational origin of the dark sector depends on future prospective validation without retuning the frozen graph core.
+
+\section*{Data and code availability}
+\label{sec:data_and_code_availability}
+
+The numerical values reported in the validation sections are accompanied by machine-readable audit tables and minimal reproduction scripts in the Zenodo deposit associated with this manuscript. The deposit includes CSV summaries for the galaxy/lensing BIC comparison, the void morphology audit, and the void-wall amplitude diagnostic, together with scripts that reproduce the reported BIC differences and amplitude ratios. These scripts reproduce the tables reported in this paper; they do not constitute a complete end-to-end survey pipeline. Full independent validation will require reimplementation on external shear catalogues, void catalogues, covariance matrices, and mock catalogues.
+
+\appendix
+
+\section{Combinatorial Motivation of the Frozen Motif \texorpdfstring{$F^\star$}{F*}}
+\label{app:fstar_derivation}
+
+This appendix summarizes the combinatorial motivation for the frozen motif used in the main text. Section~\ref{sec:frozen_core} defines the motif and its role in the DRND II validation sectors. Here we reconstruct the design logic that motivates the choice
+\begin{equation}
+F^\star
+=
+P_9\oplus P_5^{(1)}\oplus P_5^{(2)}.
+\end{equation}
+The construction should be read as a compact reconstruction of the adopted motif, not as a final first-principles derivation of the graph core.
+
+\subsection{Design requirements}
+
+The construction begins from the requirement that a minimal relational motif must support three distinct functions:
+\begin{enumerate}
+    \item a local coherent transport channel;
+    \item two environmental or relational delay channels;
+    \item a common projection structure capable of entering both microscopic phase resonances and macroscopic transport amplitudes.
+\end{enumerate}
+The motif must therefore be large enough to encode a nontrivial phase structure, but small enough to remain a minimal frozen core. In DRND II this leads to an odd-path decomposition rather than to a complete graph, lattice cell, or arbitrary weighted network.
+
+Odd paths are used because they possess a central vertex and symmetric relational sides. This makes them natural minimal carriers of phase delay, compensation, and reflection. The construction therefore searches for a minimal odd-path basis of the form
+\begin{equation}
+F=P_a\oplus P_b\oplus P_c,
+\end{equation}
+with one local channel and two environmental channels.
+
+\subsection{The local rigid channel \texorpdfstring{$P_9$}{P9}}
+
+The local channel must support a three-phase resonance. The charged-lepton sector in the microscopic extension is organized by three phase states, separated by \(2\pi/3\), of the form
+\begin{equation}
+m_i^\ell
+=
+M_\ell
+\left[
+1+\sqrt{2}\cos\left(
+\theta_\ell+\frac{2\pi i}{3}
+\right)
+\right]^2,
+\qquad i=0,1,2.
+\end{equation}
+The phase denominator selected by the DRND III charged-lepton resonance is
+\begin{equation}
+\theta_\ell=\frac{2}{9}.
+\end{equation}
+The denominator \(9\) is therefore assigned to the local rigid resonance channel. The minimal odd path with this cardinality is
+\begin{equation}
+P_9.
+\end{equation}
+In the main text this channel is called the local rigid transport channel. It is the part of the motif associated with coherent local propagation and charged-sector resonance.
+
+This does not mean that \(P_9\) alone is the microscopic particle. Rather, \(P_9\) supplies the local resonant backbone against which the environmental branches are projected. The charged-lepton angle is then interpreted as the ratio
+\begin{equation}
+\theta_\ell
+=
+\frac{2}{9},
+\end{equation}
+where the numerator counts the two environmental branches and the denominator is the local rigid-channel cardinality.
+
+\subsection{The two environmental branches \texorpdfstring{$P_5^{(1)}\oplus P_5^{(2)}$}{P5(1)+P5(2)}}
+
+A single local channel is insufficient for DRND II because the macroscopic sectors require environmental response, compensation, and line-of-sight sensitivity. The minimal environmental branch must be an odd path with a central vertex and two relational sides. The smallest nontrivial branch satisfying this role beyond the trivial \(P_3\) is
+\begin{equation}
+P_5.
+\end{equation}
+The \(P_5\) branch can be interpreted as a minimal delay or compensation channel: it has a center, two internal steps, and two boundary endpoints. This makes it suitable for encoding relational leakage, wall compensation, and neutral-sector phase defects.
+
+DRND II uses two such environmental branches:
+\begin{equation}
+P_5^{(1)}\oplus P_5^{(2)}.
+\end{equation}
+The doubling is not an additional fit freedom. It is required by the mirror structure between microscopic phase resonance and macroscopic void-wall response. At the microscopic level, the two environmental branches enter the numerator of
+\begin{equation}
+\theta_\ell=\frac{2}{9}.
+\end{equation}
+At the macroscopic level, the same two branches define the projection denominator of the void-wall gain
+\begin{equation}
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}.
+\end{equation}
+
+\subsection{Closure of the minimal motif}
+
+Combining the local channel and the two environmental branches gives
+\begin{equation}
+F^\star
+=
+P_9\oplus P_5^{(1)}\oplus P_5^{(2)}.
+\end{equation}
+The total cardinality is
+\begin{equation}
+|F^\star|
+=
+9+5+5
+=
+19.
+\end{equation}
+This is the smallest motif in this construction that simultaneously contains:
+\begin{enumerate}
+    \item a nine-state local resonant backbone;
+    \item two five-state environmental branches;
+    \item an odd total cardinality;
+    \item a microscopic phase ratio \(2/9\);
+    \item a macroscopic environmental projection \(19/2\).
+\end{enumerate}
+
+The resulting pair of numbers is
+\begin{equation}
+\theta_\ell=\frac{2}{9},
+\qquad
+\eta_{\mathrm{wall}}=\frac{19}{2}.
+\end{equation}
+DRND II refers to this as a graph-cardinality mirror. It is not a strict reciprocal relation: the reciprocal of \(2/9\) is \(9/2\), not \(19/2\). The appearance of \(19/2\) is mediated by the total cardinality of the frozen graph motif. The microscopic phase is controlled by the ratio of environmental branches to the rigid \(P_9\) channel, whereas the macroscopic void-wall gain is controlled by the full motif cardinality projected over the two environmental branches.
+
+\subsection{Connection to the cosmological transport scale}
+
+The macroscopic transport sector also uses the acceleration scale
+\begin{equation}
+a_0=\chi cH_0,
+\qquad
+\chi=0.18.
+\end{equation}
+This scale supplies the cosmological normalization of the spectral/topological transport law. It is not used to choose the graph cardinality \(19\). Instead, the role of \(a_0\) is to convert the fixed graph transport structure into an acceleration scale that can be compared with galactic dynamics and lensing observables.
+
+The resulting galactic spectral-transport law is
+\begin{equation}
+g_{\mathrm{ST}}
+=
+g_b\,\nu(g_b/a_0),
+\end{equation}
+with
+\begin{equation}
+\nu(x)
+=
+\frac12+\sqrt{\frac14+\frac1x}.
+\end{equation}
+The ATP lensing kernel uses the same acceleration scale through
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}.
+\end{equation}
+Thus, the discrete graph motif fixes the topological projection structure, while \(a_0\) fixes the macroscopic acceleration normalization.
+
+The use of \(H_0\) should be read as a cosmological transport normalization, not as an assumption that the cosmological constant is a fundamental vacuum energy. A complete derivation of \(\chi\), \(H_0\), and the graph update dynamics from a single microscopic principle remains outside the scope of DRND II.
+
+\subsection{Parameter-free projection into the void sector}
+
+The most direct macroscopic use of the graph cardinality occurs in the void-wall sector. The frozen motif gives
+\begin{equation}
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}
+=
+\frac{19}{2}.
+\end{equation}
+The corresponding locked void-wall amplitude is
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\end{equation}
+This amplitude is not obtained by fitting a free normalization to the void data. It is fixed by the same motif used in the rest of DRND II. The empirical test therefore asks whether the locked amplitude agrees with the amplitude required by the SDSS \(R/R_v\) covariance diagnostic.
+
+In the diagnostic reported in the main text,
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}
+=
+0.2029359,
+\end{equation}
+while
+\begin{equation}
+A_{\mathrm{required}}
+=
+0.2039621.
+\end{equation}
+Therefore
+\begin{equation}
+\frac{
+A_{\mathrm{DRND}}^{19/2}
+}{
+A_{\mathrm{required}}
+}
+=
+0.99497.
+\end{equation}
+The relative mismatch is
+\begin{equation}
+1-
+\frac{
+A_{\mathrm{DRND}}^{19/2}
+}{
+A_{\mathrm{required}}
+}
+=
+0.00503,
+\end{equation}
+or approximately \(0.50\%\).
+
+This is the main reason the combinatorial origin of \(F^\star\) matters. In the frozen DRND II model, the factor \(19/2\) is treated as inherited from the adopted graph motif rather than as a fitted amplitude in the void diagnostic. The void-sector result is therefore a parameter-free diagnostic of the graph-cardinality projection.
+
+\subsection{Scope of the construction}
+
+The construction above should be interpreted as a minimal combinatorial reconstruction, not as a final microscopic dynamics. A complete DRND microtheory would still have to derive:
+\begin{enumerate}
+    \item the update rule \(G_n\to G_{n+1}\);
+    \item the allowed local reconnection moves;
+    \item the stability conditions for localized excitations;
+    \item the continuum limit of the graph dynamics;
+    \item the cosmological normalization \(\chi\) from first principles.
+\end{enumerate}
+DRND II does not claim that these steps have been completed. The claim made here is narrower: once the motif
+\begin{equation}
+F^\star=P_9\oplus P_5^{(1)}\oplus P_5^{(2)}
+\end{equation}
+is frozen, its cardinality and projections generate fixed structures that can be tested against macroscopic diagnostics.
+
+In this sense, \(F^\star\) functions as a minimal relational transport basis. It supplies the graph-cardinality structures
+\begin{equation}
+\theta_\ell=\frac{2}{9},
+\qquad
+\eta_{\mathrm{wall}}=\frac{19}{2},
+\end{equation}
+while the empirical sections of the paper test whether the corresponding macroscopic projections survive comparison with galaxy, lensing, and void data.
+
+\section{Microscopic Phase-Resonance Mass Spectrum}
+\label{app:mass_spectrum}
+
+This appendix records the microscopic phase-resonance extension associated with the frozen DRND II motif
+\begin{equation}
+F^\star=P_9\oplus P_5^{(1)}\oplus P_5^{(2)}.
+\end{equation}
+It is included to document the particle-spectrum structures suggested by the same relational core used in the macroscopic ST/ATP and void-wall sectors.
+
+The status of this appendix is deliberately limited. It is not presented as a complete derivation of the Standard Model, QCD, electroweak symmetry breaking, CKM mixing, PMNS mixing, or radiative corrections. It is a compact phase-resonance encoding of several mass patterns, with the charged-lepton sector as the strongest microscopic result.
+
+The common mass scale is denoted by \(M_\ell\). Numerically, the spectrum below uses
+\begin{equation}
+M_\ell\simeq 313.838~\mathrm{MeV}.
+\end{equation}
+This is the same scale that appears in the electroweak phase-time barrier relations
+\begin{equation}
+M_W=2^8M_\ell,
+\qquad
+M_{H_B}=400M_\ell.
+\end{equation}
+
+\subsection{Charged leptons: three-phase resonance}
+
+The charged-lepton sector is represented by a three-phase resonance:
+\begin{equation}
+m_i^\ell
+=
+M_\ell
+\left[
+1+\sqrt{2}\cos\left(
+\theta_\ell+\frac{2\pi i}{3}
+\right)
+\right]^2,
+\qquad
+i=0,1,2.
+\label{eq:charged_lepton_resonance}
+\end{equation}
+In DRND III the charged-lepton phase is fixed as
+\begin{equation}
+\theta_\ell=\frac{2}{9}.
+\label{eq:theta_lepton}
+\end{equation}
+This removes the earlier need for an electron-specific phase correction. The charged leptons are therefore interpreted as three eigenvalue-like projections of a single phase-resonance structure.
+
+\noindent\textbf{Table B1.} Charged-lepton masses from the DRND III three-phase resonance.
+
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\hline
+\textbf{Lepton} & \textbf{DRND III [MeV]} & \textbf{Data [MeV]} & \textbf{Relative error} \\
+\hline
+\(e\)     & 0.510965  & 0.510999 & \(-0.0067\%\) \\
+\(\mu\)  & 105.6523  & 105.6584 & \(-0.0057\%\) \\
+\(\tau\) & 1776.8661 & 1776.86  & \(+0.00034\%\) \\
+\hline
+\end{tabular}
+\end{center}
+
+The important structural point is that \(\theta_\ell=2/9\) is treated as a charged-sector resonance angle, not as a universal mass angle for all particle sectors. DRND II does not require every sector to obey equation~(\ref{eq:charged_lepton_resonance}). Instead, different sectors are treated as different projections of the same frozen relational motif.
+
+\subsection{Neutrinos: neutral phase-sector projection}
+
+The neutrino sector is treated as a neutral phase-sector projection rather than as a charged Koide-type resonance. The preferred DRND III neutrino variant is denoted \(N\)-III-B. It uses the scale
+\begin{equation}
+M_\nu
+=
+\frac{2}{3}\alpha^5M_\ell,
+\label{eq:neutrino_scale}
+\end{equation}
+where \(\alpha\) is the fine-structure constant, and the neutral phase
+\begin{equation}
+\theta_\nu
+=
+\frac{2}{9}
++
+\sqrt{2}\left(1-\frac{2}{\pi}\right).
+\label{eq:theta_neutrino}
+\end{equation}
+The mass rule is
+\begin{equation}
+m_{\nu,i}
+=
+M_\nu
+\left[
+1+\sqrt{2}\cos\left(
+\theta_\nu+\frac{2\pi i}{3}
+\right)
+\right]^2.
+\label{eq:neutrino_mass_rule}
+\end{equation}
+
+After normal ordering, the preferred neutral-sector projection gives approximately
+\begin{equation}
+m_1\simeq 0.000688~\mathrm{eV},
+\end{equation}
+\begin{equation}
+m_2\simeq 0.011506~\mathrm{eV},
+\end{equation}
+and
+\begin{equation}
+m_3\simeq 0.046255~\mathrm{eV}.
+\end{equation}
+The sum is
+\begin{equation}
+\sum_i m_{\nu,i}
+\simeq
+0.05845~\mathrm{eV}.
+\end{equation}
+
+The corresponding mass splittings in the preferred neutral-sector variant are
+\begin{equation}
+\Delta m_{21}^2
+\simeq
+8.08\times10^{-5}~\mathrm{eV}^2,
+\end{equation}
+and
+\begin{equation}
+\Delta m_{31}^2
+\simeq
+2.41\times10^{-3}~\mathrm{eV}^2.
+\end{equation}
+
+A more direct mirror variant, denoted \(N\)-III-A, preserves a more literal charged-sector phase reflection but gives a worse oscillation fit:
+\begin{equation}
+\Delta m_{21}^2
+\simeq
+1.32\times10^{-4}~\mathrm{eV}^2,
+\qquad
+\Delta m_{31}^2
+\simeq
+2.14\times10^{-3}~\mathrm{eV}^2.
+\end{equation}
+For this reason DRND II records \(N\)-III-B as the preferred neutrino projection. The interpretation is that neutrinos occupy a neutral phase-defect sector rather than the charged-lepton resonance sector.
+
+\subsection{Quarks: holonomic winding hierarchy}
+
+The quark sector is not obtained by multiplying the charged-lepton resonance eigenvalues into quark masses. That extension destabilizes the charm/top structure and is not adopted in DRND II. Instead, quarks are represented by holonomic winding ladders involving powers of \(\alpha\).
+
+For up-type quarks,
+\begin{equation}
+u:c:t
+=
+4M_\ell(\alpha:1:\alpha^{-1}).
+\label{eq:up_type_quarks}
+\end{equation}
+Numerically,
+\begin{equation}
+m_u^{\mathrm{core}}\simeq 9.1608~\mathrm{MeV},
+\end{equation}
+\begin{equation}
+m_c^{\mathrm{core}}\simeq 1.25535~\mathrm{GeV},
+\end{equation}
+and
+\begin{equation}
+m_t^{\mathrm{core}}\simeq 172.029~\mathrm{GeV}.
+\end{equation}
+The factor \(4\) is interpreted as a direct colour projection, while the powers \((\alpha,1,\alpha^{-1})\) encode holonomic winding.
+
+The down-type core is
+\begin{equation}
+d:s:b
+=
+\frac{3}{40}M_\ell(\alpha^2:\alpha:1).
+\label{eq:down_type_core}
+\end{equation}
+This gives
+\begin{equation}
+m_d^{\mathrm{core}}\simeq 1.253~\mathrm{keV},
+\end{equation}
+\begin{equation}
+m_s^{\mathrm{core}}\simeq 0.1718~\mathrm{MeV},
+\end{equation}
+and
+\begin{equation}
+m_b^{\mathrm{core}}\simeq 23.5379~\mathrm{MeV}.
+\end{equation}
+
+After colour closure by
+\begin{equation}
+C_d=16=4^2,
+\end{equation}
+the effective down-type ladder becomes
+\begin{equation}
+d:s:b_{\mathrm{eff}}
+=
+\frac{6}{5}M_\ell(\alpha^2:\alpha:1).
+\label{eq:down_type_effective}
+\end{equation}
+Numerically,
+\begin{equation}
+m_d^{\mathrm{eff}}\simeq 20.05~\mathrm{keV},
+\end{equation}
+\begin{equation}
+m_s^{\mathrm{eff}}\simeq 2.748~\mathrm{MeV},
+\end{equation}
+and
+\begin{equation}
+m_b^{\mathrm{eff}}\simeq 376.606~\mathrm{MeV}.
+\end{equation}
+The effective bottom/top relation is
+\begin{equation}
+\frac{m_b^{\mathrm{eff}}}{m_t^{\mathrm{core}}}
+=
+\frac{3}{10}\alpha.
+\end{equation}
+
+These quark-sector quantities should be interpreted as core or effective DRND projections, not as direct replacements for scale-dependent renormalized quark masses in QCD.
+
+\subsection{Electroweak phase-time barriers}
+
+The electroweak sector is represented by phase-time barriers associated with the same scale \(M_\ell\). The \(W\)-barrier relation is
+\begin{equation}
+M_W
+=
+2^8M_\ell.
+\label{eq:mw_drnd}
+\end{equation}
+Numerically,
+\begin{equation}
+M_W^{\mathrm{DRND}}
+=
+80.3426~\mathrm{GeV}.
+\end{equation}
+
+The weak mixing factor is represented by
+\begin{equation}
+\sin^2\theta_W
+=
+\frac{2+\alpha}{9}.
+\label{eq:sin2theta_drnd}
+\end{equation}
+The corresponding \(Z\)-barrier relation is
+\begin{equation}
+M_Z
+=
+2^8M_\ell
+\frac{3}{\sqrt{7-\alpha}},
+\label{eq:mz_drnd}
+\end{equation}
+giving
+\begin{equation}
+M_Z^{\mathrm{DRND}}
+=
+91.1475~\mathrm{GeV}.
+\end{equation}
+
+The hypothetical scalar phase barrier is
+\begin{equation}
+M_{H_B}
+=
+400M_\ell,
+\label{eq:mhb_drnd}
+\end{equation}
+with
+\begin{equation}
+M_{H_B}^{\mathrm{DRND}}
+=
+125.535~\mathrm{GeV}.
+\end{equation}
+The notation \(H_B\) denotes a phase-time barrier. It is not claimed here to be a complete derivation of the Higgs mechanism or of electroweak symmetry breaking.
+
+\subsection{Vector mesons}
+
+The vector-meson sector is represented by a closed phase-delay rule depending on the strangeness count \(n_s\):
+\begin{equation}
+M_V(n_s)
+=
+M_\ell
+\left(
+\sqrt{6}
++
+\frac{7}{18}n_s
+\right).
+\label{eq:vector_mesons}
+\end{equation}
+
+\noindent\textbf{Table B2.} Vector-meson masses from the DRND closed phase-delay rule.
+
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\hline
+\textbf{State} & \textbf{DRND [MeV]} & \textbf{Data [MeV]} & \textbf{Relative error} \\
+\hline
+\(\rho\)   & 768.744  & 775.26  & \(-0.84\%\) \\
+\(K^\ast\) & 890.792  & 891.66  & \(-0.10\%\) \\
+\(\phi\)   & 1012.840 & 1019.46 & \(-0.65\%\) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Baryon decuplet}
+
+The baryon decuplet is represented by
+\begin{equation}
+M_{10}(n_s)
+=
+M_\ell
+\frac{157+19n_s}{40}.
+\label{eq:baryon_decuplet}
+\end{equation}
+
+\noindent\textbf{Table B3.} Baryon decuplet masses from the DRND phase-delay rule.
+
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\hline
+\textbf{State} & \textbf{DRND [MeV]} & \textbf{Data [MeV]} & \textbf{Relative error} \\
+\hline
+\(\Delta\)      & 1231.815 & 1232.0  & \(-0.015\%\) \\
+\(\Sigma^\ast\) & 1380.888 & 1384.6  & \(-0.27\%\) \\
+\(\Xi^\ast\)    & 1529.961 & 1531.8  & \(-0.12\%\) \\
+\(\Omega^-\)    & 1679.035 & 1672.45 & \(+0.39\%\) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Baryon octet}
+
+The baryon octet is represented by
+\begin{equation}
+M_8(n_s,I)
+=
+M_\ell
+\left[
+3+\frac{3}{5}n_s
++
+n_s(2-n_s)
+\left(
+\frac18 I(I+1)-\frac{3}{64}
+\right)
+\right],
+\label{eq:baryon_octet}
+\end{equation}
+where \(n_s\) is the strangeness count and \(I\) is isospin.
+
+\noindent\textbf{Table B4.} Baryon octet masses from the DRND phase-delay rule.
+
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\hline
+\textbf{State} & \textbf{DRND [MeV]} & \textbf{Data [MeV]} & \textbf{Relative error} \\
+\hline
+\(N\)        & 941.515  & 938.918  & \(+0.28\%\) \\
+\(\Lambda\) & 1115.106 & 1115.683 & \(-0.052\%\) \\
+\(\Sigma\)  & 1193.566 & 1193.15  & \(+0.035\%\) \\
+\(\Xi\)     & 1318.121 & 1318.29  & \(-0.013\%\) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Pseudoscalar mesons}
+
+The pseudoscalar sector uses a chiral phase factor \(\Theta_P^{(\chi)}\):
+\begin{equation}
+M_P
+=
+M_\ell
+\sqrt{\Theta_P^{(\chi)}}.
+\label{eq:pseudoscalar_rule}
+\end{equation}
+
+\noindent\textbf{Table B5.} Pseudoscalar meson masses from the DRND chiral phase rule.
+
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\hline
+\textbf{State} & \(\boldsymbol{\Theta_P^{(\chi)}}\) & \textbf{DRND [MeV]} & \textbf{Data [MeV]} \\
+\hline
+\(\pi^0\)   & \(3/16\)     & 135.896 & 134.98 \\
+\(\pi^\pm\)& \(1/5\)      & 140.353 & 139.57 \\
+\(K\)       & \(5/2\)      & 496.222 & 495.6 \\
+\(\eta\)   & \(3+3/64\)   & 547.814 & 547.86 \\
+\(\eta'\)  & \(9+5/16\)   & 957.721 & 957.78 \\
+\hline
+\end{tabular}
+\end{center}
+
+The corresponding relative errors are approximately \(+0.68\%\) for \(\pi^0\), \(+0.56\%\) for \(\pi^\pm\), \(+0.13\%\) for \(K\), \(-0.008\%\) for \(\eta\), and \(-0.006\%\) for \(\eta'\).
+
+\subsection{Interpretive summary}
+
+The microscopic extension can be summarized by the following sector assignments.
+
+\noindent\textbf{Table B6.} Summary of sector assignments in the microscopic DRND extension.
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\hline
+\textbf{Sector} & \textbf{DRND projection} \\
+\hline
+\(e,\mu,\tau\) & three-phase charged resonance with \(\theta_\ell=2/9\) \\
+\(\nu_i\) & neutral phase-defect sector with \(\alpha^5\) scale \\
+\(u,c,t\) & holonomic winding \(\alpha^w\) and colour projection \(4\) \\
+\(d,s,b\) & holonomic winding with down-sector closure \(16\) \\
+\(W,Z,H_B\) & phase-time barriers \\
+vector mesons & closed vector phase delays \\
+baryon octet/decuplet & closed baryonic delay rules \\
+pseudoscalars & chiral phase factors \(\Theta_P^{(\chi)}\) \\
+\hline
+\end{tabular}
+\end{center}
+
+The unifying principle is not that every particle mass follows the same equation. Rather, each sector is treated as a different projection of the same relational phase structure. The charged leptons provide the cleanest microscopic resonance. The remaining sectors are structured extensions that require further validation, renormalization analysis, mixing-angle treatment, and comparison with current particle-data conventions.
+
+\section{Changelog from DRND v1.0.3}
+\label{app:changelog}
+
+This appendix summarizes the main changes between DRND v1.0.3 and the present DRND II / v2.0.0-alpha formulation. The purpose is to make the version transition explicit. DRND v1.0.3 introduced the broad relational framework; DRND II freezes a specific spectral/topological transport sector and adds empirical validation modules.
+
+\subsection{Version status}
+
+The present work is a revision and extension of
+\begin{center}
+\textit{Discrete Relational Network Dynamics (DRND): A Fully Emergent Framework for Spacetime, Matter, and the Evolution of Fundamental Constants},
+\end{center}
+version v1.0.3, DOI:
+\begin{center}
+\texttt{10.5281/zenodo.18615542}.
+\end{center}
+The scientific baseline is v1.0.3. Any earlier internal numbering appearing in draft files is treated as a versioning artefact rather than a distinct scientific baseline.
+
+\subsection{Core retained from v1.0.3}
+
+The following elements are retained from the original DRND framework:
+\begin{enumerate}
+    \item the relational graph ontology;
+    \item spacetime as an emergent coarse-grained structure;
+    \item time as update order rather than a primitive background coordinate;
+    \item matter-like structures as stable localized graph excitations;
+    \item spectral dimension as an operational graph observable;
+    \item graph diffusion and return probability as probes of effective dimension;
+    \item mean first-passage transport as a route to effective propagation;
+    \item topological screening between dense halo-like and sparse void-like environments;
+    \item falsifiability as a core requirement of the programme.
+\end{enumerate}
+
+In notation, the original graph
+\begin{equation}
+G(V,E)
+\end{equation}
+is refined to the update-indexed form
+\begin{equation}
+G_n=(V_n,E_n),
+\end{equation}
+where \(n\) labels the causal update stage.
+
+The spectral-dimension definition remains
+\begin{equation}
+d_S(\tau)
+=
+-2\,\frac{d\ln P_r(\tau)}{d\ln \tau}.
+\end{equation}
+The effective graph-transport interpretation through geodesic distance and mean first-passage time is also retained.
+
+\subsection{New frozen topological core}
+
+DRND II adds the frozen graph motif
+\begin{equation}
+F^\star
+=
+P_9\oplus P_5^{(1)}\oplus P_5^{(2)},
+\qquad
+|F^\star|=19.
+\end{equation}
+This motif was not part of the frozen operational core of v1.0.3. In the present work it is used as the common structural basis for:
+\begin{enumerate}
+    \item the macroscopic spectral-transport sector;
+    \item the ATP lensing sector;
+    \item the void-wall topological-gain sector;
+    \item the conjectural microscopic phase-resonance appendix.
+\end{enumerate}
+
+The motif is held fixed across all validation modules. Its cardinality and decomposition are not fitted to the galaxy, lensing, or void data.
+
+\subsection{New topological acceleration scale}
+
+DRND II introduces the fixed acceleration scale
+\begin{equation}
+a_0=\chi cH_0,
+\qquad
+\chi=0.18.
+\end{equation}
+For
+\begin{equation}
+H_0=67.4~\mathrm{km\,s^{-1}\,Mpc^{-1}},
+\end{equation}
+this gives
+\begin{equation}
+a_0=1.1787\times10^{-10}~\mathrm{m\,s^{-2}}.
+\end{equation}
+In DRND II, \(a_0\) is a frozen present-normalized transport scale:
+\begin{equation}
+a_0^{\mathrm{DRND\,II}}
+=
+\chi cH_0
+=
+\mathrm{const}.
+\label{eq:a0_frozen}
+\end{equation}
+It is not promoted in this paper to a redshift-dependent quantity
+\begin{equation}
+a_0(z)\neq \chi cH(z).
+\end{equation}
+Consequently, the same value of \(a_0\) is used when applying the frozen ST/ATP law to galaxies, lensing systems, or void diagnostics at different redshifts. Replacing \(H_0\) by \(H(z)\) would define a different dynamical extension of DRND, not the frozen sector tested in this work.
+In v1.0.3, the main phenomenological emphasis was on topology-dependent effective propagation, including toy \(c_{\mathrm{eff}}(z)\) cosmology. In DRND II, the main macroscopic scale is the frozen acceleration scale \(a_0\).
+
+\subsection{New spectral-transport acceleration law}
+
+DRND II adds the galaxy-scale spectral-transport law
+\begin{equation}
+g_{\mathrm{ST}}
+=
+g_b\,\nu(g_b/a_0),
+\end{equation}
+with
+\begin{equation}
+\nu(x)
+=
+\frac12+\sqrt{\frac14+\frac1x}.
+\end{equation}
+The fixed scale \(a_0\) is not re-tuned system by system. In the low-acceleration limit this gives
+\begin{equation}
+g_{\mathrm{ST}}\simeq \sqrt{g_ba_0},
+\end{equation}
+and hence
+\begin{equation}
+v^4\simeq GM_ba_0.
+\end{equation}
+
+\subsection{New ATP lensing kernel}
+
+DRND II introduces the ATP lensing sector,
+\begin{equation}
+\Delta\Sigma_{\mathrm{total}}(R)
+=
+\Delta\Sigma_{\mathrm{baryon}}(R)
++
+\Delta\Sigma_{\mathrm{ATP}}(R),
+\end{equation}
+with fixed amplitude
+\begin{equation}
+A_{\mathrm{ATP}}
+=
+\frac14\,\frac{\sqrt{GM_ba_0}}{G}.
+\end{equation}
+The baryonic contribution remains explicit. The ATP term is interpreted as a projected topological transport response, not as a fitted dark-halo density profile.
+
+\subsection{New galaxy/lensing validation module}
+
+DRND II adds an empirical validation module comparing the fixed ATP+baryon model with an NFW+baryon control. In the current audit,
+\begin{equation}
+\mathrm{BIC}_{\mathrm{ATP+baryon}}=31.70,
+\end{equation}
+and
+\begin{equation}
+\mathrm{BIC}_{\mathrm{NFW+baryon}}=44.26.
+\end{equation}
+Thus
+\begin{equation}
+\Delta\mathrm{BIC}_{\mathrm{ATP-NFW}}
+=
+-12.56.
+\end{equation}
+This is reported as a positive diagnostic result for the frozen DRND-ST/ATP sector. It is not reported as a general exclusion of NFW halos or particle dark matter.
+
+\subsection{New void morphology module}
+
+DRND II adds a void-sector morphology module. The main change is the treatment of voids as low-connectivity regions bounded by compensated wall structures, rather than as negative galaxies. The selected baseline morphology is
+\begin{equation}
+\Delta\Sigma_{\mathrm{void}}(R)
+=
+A_{\mathrm{wall}}K_{\mathrm{wall}}(R/R_v),
+\qquad
+\Delta\Sigma_{\mathrm{core}}(R)=0.
+\end{equation}
+This is the zero-core compensated-wall morphology used in the void amplitude validation.
+
+\subsection{New parameter-free void-wall amplitude}
+
+DRND II adds the graph-predicted void-wall gain
+\begin{equation}
+\eta_{\mathrm{wall}}
+=
+\frac{|F^\star|}{2}
+=
+\frac{19}{2}.
+\end{equation}
+The corresponding locked amplitude is
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}(z)
+=
+\frac{19}{2}A_{\Omega_b}(z).
+\end{equation}
+In the current SDSS \(R/R_v\) covariance diagnostic,
+\begin{equation}
+A_{\mathrm{DRND}}^{19/2}=0.2029359,
+\end{equation}
+while
+\begin{equation}
+A_{\mathrm{required}}=0.2039621.
+\end{equation}
+The ratio is
+\begin{equation}
+\frac{
+A_{\mathrm{DRND}}^{19/2}
+}{
+A_{\mathrm{required}}
+}
+=
+0.99497,
+\end{equation}
+corresponding to an amplitude mismatch of approximately \(0.50\%\).
+
+The information-criterion comparison gives
+\begin{equation}
+\mathrm{BIC}_{19/2}=37.70,
+\end{equation}
+\begin{equation}
+\mathrm{BIC}_{A\mathrm{-free}}=39.90,
+\end{equation}
+and
+\begin{equation}
+\mathrm{BIC}_{\mathrm{null}}=112.65.
+\end{equation}
+The locked \(19/2\) model is therefore preferred over both the null model and the fitted-amplitude diagnostic model under the stated BIC convention.
+
+\subsection{New microscopic phase-resonance appendix}
+
+DRND II adds \ref{app:mass_spectrum}, which records a conjectural microscopic phase-resonance mass-spectrum extension. The strongest microscopic result is the charged-lepton resonance
+\begin{equation}
+m_i^\ell
+=
+M_\ell
+\left[
+1+\sqrt{2}\cos\left(
+\frac{2}{9}
++
+\frac{2\pi i}{3}
+\right)
+\right]^2.
+\end{equation}
+This replaces earlier electron-specific phase corrections and treats the charged leptons as a three-phase resonance.
+
+The appendix also records structured projections for:
+\begin{enumerate}
+    \item neutrinos;
+    \item up-type quarks;
+    \item down-type quarks;
+    \item electroweak phase-time barriers;
+    \item vector mesons;
+    \item baryon octet and decuplet;
+    \item pseudoscalar mesons.
+\end{enumerate}
+This appendix is explicitly classified as a conjectural microscopic extension, not as a completed derivation of the Standard Model.
+
+\subsection{Reclassified material from v1.0.3}
+
+Several directions present in v1.0.3 are retained but no longer treated as part of the frozen DRND II validation core. These include:
+\begin{enumerate}
+    \item variable \(c_{\mathrm{eff}}(z)\) as a full dark-energy replacement;
+    \item evolving \(\hbar\);
+    \item evolving \(G\);
+    \item CMB Cold Spot interpretation;
+    \item full CMB/BBN consistency;
+    \item full relativistic field equations;
+    \item complete microscopic graph update dynamics.
+\end{enumerate}
+These topics remain future-work directions.
+
+The dark-matter phenomenology itself is not postponed. DRND II addresses it at the effective level through explicit baryons, spectral-transport acceleration, ATP lensing, and void-wall topology. What remains open is the final microscopic interpretation of any residual dark component.
+
+\subsection{Non-claims introduced in v2.0.0-alpha}
+
+DRND II / v2.0.0-alpha explicitly does not claim:
+\begin{enumerate}
+    \item to disprove \(\Lambda\)CDM;
+    \item to exclude particle dark matter;
+    \item to derive the full Standard Model;
+    \item to replace QCD;
+    \item to derive the Higgs mechanism;
+    \item to provide a complete relativistic theory of lensing;
+    \item to complete graph microdynamics;
+    \item to establish full CMB/BBN consistency.
+\end{enumerate}
+
+The positive claim of v2.0.0-alpha is narrower:
+\begin{equation}
+\mathrm{DRND\ II}
+=
+\mathrm{a\ frozen\ spectral/topological\ transport\ sector}
+\end{equation}
+with fixed \(a_0=\chi cH_0\), fixed ATP normalization, explicit baryons, and graph-predicted void-wall gain \(19/2\), tested against specified controls.
+
+\subsection{Summary of the version transition}
+
+The version transition can be summarized as
+\begin{eqnarray}
+\mathrm{DRND\ v1.0.3}
+&=&
+\mathrm{relational\ ontology}
+\nonumber\\
+&&+
+\mathrm{spectral\ transport\ framework}
+\nonumber\\
+&&+
+\mathrm{toy\ cosmological\ directions}.
+\nonumber
+\end{eqnarray}
+whereas
+\begin{eqnarray}
+\mathrm{DRND\ II}
+&=&
+\mathrm{relational\ ontology}
+\nonumber\\
+&&+
+\mathrm{frozen\ ST/ATP\ transport\ core}
+\nonumber\\
+&&+
+\mathrm{galaxy,\ lensing,\ and\ void\ diagnostics}
+\nonumber\\
+&&+
+\mathrm{microscopic\ appendix}.
+\nonumber
+\end{eqnarray}
+The central change is therefore not a rejection of DRND v1.0.3, but its specialization into a fixed, auditable, and falsifiable transport sector.
+
+\section*{Competing interests}
+The author declares no competing interests.
+
+\section*{References}
+\begin{thebibliography}{99}
+
+% --- Observational tensions and early structure ---
+
+\bibitem{Riess2022}
+Riess A G \etal\ 2022
+A comprehensive measurement of the local value of the Hubble constant with
+1 km s\(^{-1}\) Mpc\(^{-1}\) uncertainty from the Hubble Space Telescope and the SH0ES Team
+\textit{Astrophys.\ J.\ Lett.} \textbf{934} L7
+
+\bibitem{Labbe2023}
+Labb\'e I \etal\ 2023
+A population of red candidate massive galaxies \(\sim 600\) Myr after the Big Bang
+\textit{Nature} \textbf{616} 266--269
+
+% --- Emergent spacetime, causal structure, spectral dimension ---
+
+\bibitem{Sorkin2003}
+Sorkin R D 2003
+Causal sets: discrete gravity
+\textit{Lectures on Quantum Gravity}
+ed A Gomberoff and D Marolf
+(New York: Springer)
+Preprint gr-qc/0309009
+
+\bibitem{Ambjorn2005}
+Ambj{\o}rn J, Jurkiewicz J and Loll R 2005
+The spectral dimension of the universe is scale dependent
+\textit{Phys.\ Rev.\ Lett.} \textbf{95} 171301
+
+\bibitem{Konopka2008}
+Konopka T, Markopoulou F and Severini S 2008
+Quantum graphity: a model of emergent locality
+\textit{Phys.\ Rev.\ D} \textbf{77} 104029
+
+\bibitem{Wolfram2020}
+Wolfram S 2020
+A class of models with the potential to represent fundamental physics
+\textit{Complex Systems} \textbf{29} 107--536
+
+% --- Variable speed / propagation context ---
+
+\bibitem{Magueijo2003}
+Magueijo J 2003
+New varying speed of light theories
+\textit{Rep.\ Prog.\ Phys.} \textbf{66} 2025--2068
+
+\bibitem{Einstein1916}
+Einstein A 1916
+Die Grundlage der allgemeinen Relativit\"atstheorie
+\textit{Annalen der Physik} \textbf{49} 769--822
+
+% --- MOND, acceleration scale, radial acceleration relation ---
+
+\bibitem{Milgrom1983}
+Milgrom M 1983
+A modification of the Newtonian dynamics as a possible alternative to the hidden mass hypothesis
+\textit{Astrophys.\ J.} \textbf{270} 365--370
+
+\bibitem{Milgrom2002}
+Milgrom M 2002
+MOND as modified inertia
+\textit{Astrophys.\ J.} \textbf{599} L25--L28
+
+\bibitem{McGaugh2016}
+McGaugh S S, Lelli F and Schombert J M 2016
+Radial acceleration relation in rotationally supported galaxies
+\textit{Phys.\ Rev.\ Lett.} \textbf{117} 201101
+
+% --- NFW and dark-matter controls ---
+
+\bibitem{Navarro1996}
+Navarro J F, Frenk C S and White S D M 1996
+The structure of cold dark matter halos
+\textit{Astrophys.\ J.} \textbf{462} 563--575
+
+\bibitem{Navarro1997}
+Navarro J F, Frenk C S and White S D M 1997
+A universal density profile from hierarchical clustering
+\textit{Astrophys.\ J.} \textbf{490} 493--508
+
+% --- Weak lensing and emergent/modified gravity tests ---
+
+\bibitem{Brouwer2017}
+Brouwer M M \etal\ 2017
+First test of Verlinde's theory of emergent gravity using weak gravitational lensing measurements
+\textit{Mon.\ Not.\ R.\ Astron.\ Soc.} \textbf{466} 2547--2559
+
+% --- Cosmic voids, void lensing, modified gravity in voids ---
+
+\bibitem{Clampitt2015}
+Clampitt J and Jain B 2015
+Lensing measurements of the mass distribution in SDSS voids
+\textit{Mon.\ Not.\ R.\ Astron.\ Soc.} \textbf{454} 3357--3365
+
+\bibitem{Hamaus2014}
+Hamaus N, Sutter P M and Wandelt B D 2014
+Universal density profile for cosmic voids
+\textit{Phys.\ Rev.\ Lett.} \textbf{112} 251302
+
+\bibitem{Cai2015}
+Cai Y-C, Padilla N and Li B 2015
+Testing gravity using cosmic voids
+\textit{Mon.\ Not.\ R.\ Astron.\ Soc.} \textbf{451} 1036--1055
+
+\bibitem{Zivick2015}
+Zivick P, Sutter P M, Wandelt B D, Li B and Lam T Y 2015
+Using cosmic voids to distinguish \(f(R)\) gravity in future galaxy surveys
+\textit{Mon.\ Not.\ R.\ Astron.\ Soc.} \textbf{451} 4215--4222
+
+% --- Koide, charged-lepton relations, microscopic appendix ---
+
+\bibitem{Koide1981}
+Koide Y 1981
+A new view of quark and lepton mass hierarchy
+\textit{Phys.\ Rev.\ D} \textbf{28} 252--254
+
+\bibitem{Koide1982}
+Koide Y 1982
+A fermion-boson composite model of quarks and leptons
+\textit{Phys.\ Lett.\ B} \textbf{120} 161--165
+
+\bibitem{Foot1994}
+Foot R 1994
+A note on Koide's lepton mass relation
+Preprint hep-ph/9402242
+
+\bibitem{Brannen2006}
+Brannen C A 2006
+The lepton masses
+online manuscript
+available at \url{https://brannenworks.com/MASSWS2.pdf}
+
+\bibitem{BrannenAPS2006}
+Brannen C A 2006
+Koide's mass formula for neutrinos
+\textit{APS Northwest Section Meeting Abstracts}
+B3.014
+available at \url{https://meetings-archive.aps.org/nws/2006/b3/14/}
+
+\bibitem{Sumino2009}
+Sumino Y 2009
+Family gauge symmetry and Koide's mass formula
+\textit{Phys.\ Lett.\ B} \textbf{671} 477--480
+
+% --- DRND prior version ---
+
+\bibitem{Kleczek2026DRND}
+K\l{}eczek R 2026
+Discrete Relational Network Dynamics (DRND): A fully emergent framework for spacetime, matter, and the evolution of fundamental constants
+Zenodo, version v1.0.3
+doi:10.5281/zenodo.18615542
+
+\end{thebibliography}
+
+\end{document}

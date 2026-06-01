@@ -1,0 +1,6 @@
+label,z,k,eg_obs,eg_err,eg_lcdm,source,notes
+GAMA,0.267,0.18,0.43,0.13,0.469893,KiDS+2dFLenS+GAMA E_G Table 2,audit-level use; covariance and scale dependence compressed
+LOWZ,0.309,0.18,0.37,0.12,0.457309,KiDS+2dFLenS+GAMA E_G Table 2,audit-level use; covariance and scale dependence compressed
+2dFLOZ,0.3,0.18,0.18,0.11,0.459893,KiDS+2dFLenS+GAMA E_G Table 2,audit-level use; covariance and scale dependence compressed
+CMASS,0.548,0.18,0.28,0.08,0.405987,KiDS+2dFLenS+GAMA E_G Table 2,audit-level use; covariance and scale dependence compressed
+2dFHIZ,0.56,0.18,0.21,0.12,0.404093,KiDS+2dFLenS+GAMA E_G Table 2,audit-level use; covariance and scale dependence compressed
